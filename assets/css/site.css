@@ -3,8 +3,11 @@
    ========================================================================== */
 :root {
   --ink:        #14181c;
-  --ink-soft:   #4a545e;
-  --ink-faint:  #7d8791;
+  --ink-soft:   #4a545e;   /* 7.40:1 on --paper, 6.90:1 on --paper-tint */
+  --ink-faint:  #656e77;   /* 4.97:1 on --paper, 4.64:1 on --paper-tint — both AA.
+                              Do NOT lighten: this token is used at 12.5px and 14px
+                              (.work-card__meta, .figure__cap, .stack-group h3), which
+                              is below the large-text threshold, so 4.5:1 is the bar. */
   --paper:      #fbfaf8;
   --paper-tint: #f4f2ee;
   --line:       #e3e0da;
