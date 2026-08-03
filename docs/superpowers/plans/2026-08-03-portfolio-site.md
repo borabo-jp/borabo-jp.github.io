@@ -15,7 +15,9 @@
 - **No dependencies in the shipped site.** No frameworks, no CDN links, no webfonts, no build step. System font stacks only.
 - **No client data, ever.** No client or employer-client names, no logos, no ASINs or real product identifiers, no real revenue/volume/inventory/headcount figures, no third-party vendor or warehouse partner names. Every visual is captured from a synthetic rebuild, never from a client file. Blurring a client artifact is explicitly forbidden — rebuild it.
 - **The rebuild precedes the screenshot.** There is no stage at which a client file is captured, even temporarily.
-- **No-JS baseline.** Every page fully readable and navigable with JavaScript disabled. JS adds scroll-reveal only.
+- **No-JS baseline.** Every page fully readable and navigable with JavaScript disabled. JS adds scroll-reveal only. This has a second, harder half: content must also survive JS being *enabled* while `site.js` fails to load. The `data-reveal-ready` sentinel in the inline head script is what guarantees it — never ship one without the other.
+- **`<!DOCTYPE html>` uppercase**, on every page. `html-validate`'s `doctype-style` rule requires it; lowercase fails the build check.
+- **Copy shared chrome from the on-disk `_partials.html`, not from this plan's inline snippets.** Where they ever disagree, the file wins.
 - **Responsive at 375px, 768px, 1440px.** No horizontal body scroll at any width.
 - **Lighthouse performance ≥ 90 and accessibility ≥ 90** on every page.
 - **No image over 300KB.** Strip EXIF from every image.
@@ -184,8 +186,11 @@ Design direction, decided and not up for reinterpretation during implementation:
    ========================================================================== */
 :root {
   --ink:        #14181c;
-  --ink-soft:   #4a545e;
-  --ink-faint:  #7d8791;
+  --ink-soft:   #4a545e;   /* 7.40:1 on --paper, 6.90:1 on --paper-tint */
+  --ink-faint:  #656e77;   /* 4.97:1 on --paper, 4.64:1 on --paper-tint — both AA.
+                              Do NOT lighten: this token is used at 12.5px and 14px
+                              (.work-card__meta, .figure__cap, .stack-group h3), which
+                              is below the large-text threshold, so 4.5:1 is the bar. */
   --paper:      #fbfaf8;
   --paper-tint: #f4f2ee;
   --line:       #e3e0da;
@@ -511,10 +516,19 @@ a:hover { color: var(--accent-ink); }
 Scroll reveal only. No globals, no nav logic — the nav is plain wrapping links that work without JS, which is why there is no toggle to break.
 
 ```js
-/* Scroll reveal. The `js` class is set by an inline script in <head>, so
-   elements are visible by default when JS is unavailable. */
+/* Scroll reveal. The `js` class is set by an inline script in <head>, so elements
+   are visible by default when JS is unavailable.
+
+   The data-reveal-ready attribute below is a liveness signal, not decoration. The
+   inline script starts a 2s timer that strips the `js` class unless this file has
+   marked itself ready. Without it, a failed request for this script — a wrong
+   ../assets/ depth on a work/ page being the likely cause — would leave every
+   .reveal block hidden with nothing able to unhide it. Set it before any early
+   return, so a page with no .reveal elements also counts as ready. */
 (function () {
   "use strict";
+
+  document.documentElement.setAttribute("data-reveal-ready", "");
 
   var targets = document.querySelectorAll(".reveal");
   if (!targets.length) return;
@@ -544,7 +558,7 @@ This file is never linked or deployed. It is the copy source for shared chrome. 
 <!-- ============================================================
      HEAD — for pages in work/, change assets/ to ../assets/
      ============================================================ -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -552,7 +566,7 @@ This file is never linked or deployed. It is the copy source for shared chrome. 
 <title>PAGE TITLE — John Patrick Borabo</title>
 <meta name="description" content="ONE SENTENCE, UNDER 160 CHARS.">
 <link rel="stylesheet" href="assets/css/site.css">
-<script>document.documentElement.className += " js";</script>
+<script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -716,6 +730,7 @@ Load `http://localhost:8000/preview.html` and confirm, at 375px, 768px, and 1440
 - `.about-grid` stacks at 375px with the portrait square and not distorted, and becomes a two-column layout at 768px
 - Tab key reaches the skip link first, and it becomes visible on focus
 - With JS disabled, the `.reveal` block is fully visible
+- **Script-failure failsafe:** temporarily rename `assets/js/site.js`, reload with JS still enabled, wait 2 seconds, and confirm the `.reveal` block becomes visible. Then restore the filename. This simulates the real failure — a bad script path — and it is the check that proves the `data-reveal-ready` sentinel works. A passing no-JS check does not cover this case, because with JS off the inline script never runs at all.
 
 Fix any failure in `site.css` before continuing. This stylesheet is the contract for seven pages; a defect here multiplies.
 
@@ -920,7 +935,7 @@ Note the `../` path depth on `assets/`, and `aria-current="page"` on the Work na
 - [ ] **Step 1: Write the page**
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -928,7 +943,7 @@ Note the `../` path depth on `assets/`, and `aria-current="page"` on the Work na
 <title>Multi-warehouse inventory forecasting — John Patrick Borabo</title>
 <meta name="description" content="Replaced manual stock counts across six locations with a BigQuery-backed forecasting system that flags reorders and drafts factory purchase orders.">
 <link rel="stylesheet" href="../assets/css/site.css">
-<script>document.documentElement.className += " js";</script>
+<script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
