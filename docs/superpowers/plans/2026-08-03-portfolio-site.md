@@ -39,7 +39,7 @@
 | `work/bpo-reporting-automation.html` | Case study — VBA + MS Access + Power BI across Alorica/Ubiquity |
 | `assets/css/site.css` | All styling: tokens, base, layout primitives, every component |
 | `assets/js/site.js` | Scroll-reveal only. Nothing else. |
-| `assets/img/` | Images from synthetic rebuilds, compressed, EXIF-stripped |
+| `assets/img/` | Images from synthetic rebuilds, compressed, EXIF-stripped, plus `portrait.jpg` for the About section |
 | `assets/Borabo-CV.pdf` | Updated CV, downloadable |
 | `_partials.html` | Not shipped. Reference copy of header/footer markup to paste into new pages. |
 | `.nojekyll` | Stops GitHub Pages running Jekyll over the site |
@@ -171,7 +171,7 @@ git commit -m "chore: scaffold portfolio site repo with design spec and plan"
   - Layout: `.wrap`, `.wrap--narrow`, `.section`, `.section--tint`
   - Chrome: `.site-header`, `.site-nav`, `.site-footer`, `.skip-link`
   - Type: `.eyebrow`, `.h1`, `.h2`, `.h3`, `.lede`, `.prose`
-  - Components: `.btn`, `.btn--primary`, `.btn--ghost`, `.proof`, `.proof__item`, `.proof__num`, `.proof__label`, `.work-grid`, `.work-card`, `.work-card__title`, `.work-card__meta`, `.tags`, `.tag`, `.svc-grid`, `.svc`, `.stack-group`, `.figure`, `.figure__cap`, `.cs-section`, `.result-list`, `.reveal`
+  - Components: `.btn`, `.btn--primary`, `.btn--ghost`, `.proof`, `.proof__item`, `.proof__num`, `.proof__label`, `.work-grid`, `.work-card`, `.work-card__title`, `.work-card__meta`, `.tags`, `.tag`, `.svc-grid`, `.svc`, `.stack-group`, `.figure`, `.figure__cap`, `.cs-section`, `.result-list`, `.about-grid`, `.portrait`, `.reveal`
   - Also produces: an inline head script that sets `class="js"` on `<html>`, and `site.js` exposing no globals.
 
 Design direction, decided and not up for reinterpretation during implementation: precise and technical, not "creative portfolio." Tight sans-serif headings, generous whitespace, monospace for every number, tag, and identifier. Deep teal accent — analytical rather than startup-purple. One accent colour only. No gradients, no glassmorphism, no drop shadows other than the single card hover lift.
@@ -468,6 +468,27 @@ a:hover { color: var(--accent-ink); }
 .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 /* ==========================================================================
+   About, with portrait
+   ========================================================================== */
+.about-grid {
+  display: grid; gap: var(--sp-5);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+.about-grid__body > :last-child { margin-bottom: 0; }
+.portrait {
+  width: 9rem; aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-tint);
+}
+
+@media (min-width: 40rem) {
+  .about-grid { grid-template-columns: 9rem minmax(0, 1fr); gap: var(--sp-6); }
+}
+
+/* ==========================================================================
    Scroll reveal — opt-in, and only when JS is present
    ========================================================================== */
 .js .reveal { opacity: 0; transform: translateY(8px); }
@@ -640,6 +661,13 @@ Temporary harness so the design system can be verified before any real content e
         <figcaption class="figure__cap">Figure caption. Rebuilt with synthetic data.</figcaption>
       </figure>
     </div>
+    <div class="about-grid">
+      <img class="portrait" src="assets/img/placeholder.png" alt="">
+      <div class="about-grid__body">
+        <p>Portrait sits beside the About copy. At 375px this must stack, with the portrait above the text and not stretched. At 640px and wider it becomes a fixed 9rem column.</p>
+        <p>Second paragraph, to confirm the last-child margin reset works.</p>
+      </div>
+    </div>
     <div class="reveal"><p>This block is scroll-revealed when JS is on, and plainly visible when JS is off.</p></div>
   </div>
 </section>
@@ -685,6 +713,7 @@ Load `http://localhost:8000/preview.html` and confirm, at 375px, 768px, and 1440
 - `.proof` reflows to a single column at 375px without clipping the numbers
 - `.work-grid` is one column at 375px, multi-column by 768px
 - The header nav wraps below the name at 375px rather than overflowing
+- `.about-grid` stacks at 375px with the portrait square and not distorted, and becomes a two-column layout at 768px
 - Tab key reaches the skip link first, and it becomes visible on focus
 - With JS disabled, the `.reveal` block is fully visible
 
@@ -1214,11 +1243,16 @@ Head, header, and footer copied from `_partials.html` — note `assets/` with no
 </section>
 
 <section class="section section--tint" id="about">
-  <div class="wrap wrap--narrow prose">
+  <div class="wrap wrap--narrow">
     <h2 class="h2">About</h2>
-    <p>I spent eight years in BPO reporting and analytics, and most of it came down to the same pattern: someone was rebuilding the same report by hand every day, and it did not need to be a person's job.</p>
-    <p>I now run data and automation for a management agency as a one-person function — the warehouse, the pipelines into it, the dashboards on top, and the internal tools that use them. The through-line is that I ship systems people keep using, not reports that get opened once.</p>
-    <p><a href="assets/Borabo-CV.pdf">Download CV (PDF)</a></p>
+    <div class="about-grid">
+      <img class="portrait" src="assets/img/portrait.jpg" alt="John Patrick Borabo" width="288" height="288">
+      <div class="about-grid__body prose">
+        <p>I spent eight years in BPO reporting and analytics, and most of it came down to the same pattern: someone was rebuilding the same report by hand every day, and it did not need to be a person's job.</p>
+        <p>I now run data and automation for a management agency as a one-person function — the warehouse, the pipelines into it, the dashboards on top, and the internal tools that use them. The through-line is that I ship systems people keep using, not reports that get opened once.</p>
+        <p><a href="assets/Borabo-CV.pdf">Download CV (PDF)</a></p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1240,6 +1274,24 @@ Head, header, and footer copied from `_partials.html` — note `assets/` with no
 `UPWORK_PROFILE_URL`, `ONLINEJOBS_PROFILE_URL`, and the `.proof` list are the only unresolved items. Get the two URLs from the owner. If a profile does not exist yet, remove that button — a dead link costs more credibility than a missing one is worth.
 
 For the proof strip, propose three numbers to the owner and keep only what he confirms. Starting candidates: `8+ years in data & reporting`, `6 inventory locations reconciled`, `4h → 5m daily report runtime`. Any number he cannot defend gets cut, not softened.
+
+- [ ] **Step 3a: Generate the portrait**
+
+The owner approved a portrait in the About section on 2026-08-03. Source is `Image of Me.jpeg` in the repo root — a working file, git-ignored by design, so it is read but never committed. Output is a 288px square (2× the 9rem CSS box), centre-cropped, EXIF stripped by the re-save:
+
+```bash
+cd /c/Portfolio && python -c "
+from PIL import Image
+import os
+im = Image.open('Image of Me.jpeg').convert('RGB')
+s = min(im.width, im.height)
+im = im.crop(((im.width - s) // 2, (im.height - s) // 2, (im.width + s) // 2, (im.height + s) // 2))
+im.resize((288, 288), Image.LANCZOS).save('assets/img/portrait.jpg', 'JPEG', quality=85, optimize=True)
+print('portrait.jpg', round(os.path.getsize('assets/img/portrait.jpg') / 1024), 'KB')
+"
+```
+
+Open the result and check the centre crop did not cut off the top of the head — a naive centre crop on a portrait-orientation photo often does. If it did, adjust the vertical crop offset upward rather than accepting it.
 
 - [ ] **Step 3: Generate the six thumbnails**
 
@@ -1390,7 +1442,9 @@ git add -A && git commit -m "chore: pass confidentiality sweep and acceptance ch
 - Consumes: the verified site from Task 11.
 - Produces: a live site at `https://<username>.github.io`.
 
-**Blocked on one decision:** the GitHub account created 2026-08-03 uses the handle `jaypeeborabo81-crypto`. That handle becomes the public portfolio URL on the Upwork profile, OnlineJobs.ph applications, and the CV, and "-crypto" reads as either a throwaway or crypto-adjacent. The account is new with no dependencies, so a rename via **GitHub → Settings → Account → Change username** is free and instant. Resolve this before Step 1 — renaming after the URL is circulating means dead links in live proposals.
+**Resolved 2026-08-03:** the owner renamed the account to **`borabo-jp`**. The repo is therefore `borabo-jp.github.io` and the live URL `https://borabo-jp.github.io`. Step 1 still confirms the handle against the API rather than trusting this note, because a mismatch produces a repo that serves at a subpath instead of the domain root and the failure is silent.
+
+`README.md` currently says `jpborabo.github.io` in its heading — a deliberate placeholder from Task 1. Step 6 corrects it.
 
 - [ ] **Step 1: Confirm the username and authenticate**
 

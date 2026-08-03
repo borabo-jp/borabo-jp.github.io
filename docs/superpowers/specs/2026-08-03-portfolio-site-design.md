@@ -76,7 +76,7 @@ adds the mobile nav toggle and scroll-reveal only; the nav must be usable withou
 | 3 | Selected work | Six case study cards, thumbnail plus outcome-framed title. The load-bearing section. |
 | 4 | Services | Pipeline & report automation; BigQuery / warehouse setup; Looker Studio & Power BI dashboards; Excel/VBA & Google Sheets tooling; data cleanup & migration; internal desktop tools |
 | 5 | Stack | Grouped labels: BigQuery, SQL, Looker Studio, Power BI, Apps Script, VBA, MS Access, Power Query |
-| 6 | About | Three sentences: BPO reporting analyst to one-man data department |
+| 6 | About | Three sentences: BPO reporting analyst to one-man data department, with a small square portrait beside the copy (approved 2026-08-03 — freelance clients are hiring a person, so a face earns trust; deliberately not a hero image) |
 | 7 | Contact | Email, Upwork, OnlineJobs.ph, LinkedIn, CV download |
 
 Proof-strip numbers must be backed by something the owner can defend in a client call. Any figure
@@ -199,7 +199,12 @@ Two questions were raised and not separately answered before approval; the spec 
 
 Either assumption can be reversed without redesign.
 
-One item remains genuinely open:
+**Resolved 2026-08-03:**
 
-- **GitHub username.** The account created 2026-08-03 uses a handle unsuitable for a client-facing
-  portfolio URL. A rename is recommended before step 4. Steps 1–3 proceed regardless.
+- **GitHub username** — renamed to `borabo-jp`. The site will serve at `https://borabo-jp.github.io`.
+- **Portrait** — approved for the About section; see section 4.
+- **README accuracy** — the README's structure section names files that do not exist until later
+  tasks. Ruled acceptable: the repo is not pushed public until build step 4, and the README is
+  accurate by the time the landing page lands, so no external reader sees the interim state.
+
+Nothing remains open.
