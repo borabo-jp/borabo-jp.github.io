@@ -7,6 +7,12 @@ Desktop.ini
 .vscode/
 .idea/
 
+# Claude Code tooling
+.claude/
+
+# Build process scratch files
+.superpowers/
+
 # Working files, not deliverables
 /*.pdf
 /*.jpeg
