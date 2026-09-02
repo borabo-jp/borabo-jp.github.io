@@ -33,12 +33,12 @@
 | Path | Responsibility |
 |------|----------------|
 | `index.html` | Landing page: hero, proof strip, work grid, services, stack, about, contact |
-| `work/inventory-forecasting.html` | Flagship case study — multi-warehouse forecasting + factory PO planning |
-| `work/bigquery-warehouse.html` | Case study — scattered spreadsheets to one BigQuery source of truth |
-| `work/looker-dashboards.html` | Case study — reporting layer; hosts the live public-dataset demo |
-| `work/excel-vba-templates.html` | Case study — reusable VBA templates |
-| `work/desktop-app.html` | Case study — standalone internal desktop tool |
-| `work/bpo-reporting-automation.html` | Case study — VBA + MS Access + Power BI across Alorica/Ubiquity |
+| `work/campaign-launcher.html` | **Flagship** case study — Amazon campaign generation desktop app |
+| `work/bid-optimisation-autorun.html` | Case study — scheduled VBA/PowerShell automation across 38 workbooks |
+| `work/search-term-audit.html` | Case study — cannibalisation detection; the zip-reader engineering story |
+| `work/campaign-pausing-tool.html` | Case study — weekly pausing pass, non-mutating by design |
+| `work/catalog-alerting.html` | Case study — Cloud Run + BigQuery diff-and-notify service |
+| `work/inventory-forecasting.html` | Case study — multi-location inventory and supply planning |
 | `assets/css/site.css` | All styling: tokens, base, layout primitives, every component |
 | `assets/js/site.js` | Scroll-reveal only. Nothing else. |
 | `assets/img/` | Images from synthetic rebuilds, compressed, EXIF-stripped, plus `portrait.jpg` for the About section |
@@ -752,7 +752,34 @@ git commit -m "feat: add design system, scroll-reveal script, and shared page ch
 
 ---
 
-## Task 3: Flagship case study — synthetic rebuild
+## REVISION 2026-09-02 — read before executing any task from here on
+
+The owner disclosed seven project directories after Task 2. A read-only survey found a much larger
+body of work than this plan was written against. Consequences for the tasks below:
+
+1. **The case study lineup changed.** See the spec's revised section 5 and the file structure table
+   above. Technical source material for every page: `docs/case-study-source-material.md`.
+2. **The flagship moved** from inventory forecasting to Campaign Launcher — objectively the
+   strongest work, its documentation is clean and directly quotable, and it needs nothing from the
+   owner before its page can be written. It therefore becomes the template-proving page.
+3. **Task 3 (the synthetic sheet rebuild) is deferred**, not cancelled. It belongs to the inventory
+   forecasting page, which is now the last of the six. It remains blocked on the owner.
+4. **Visuals invert: diagrams first, screenshots second.** Hand-authored SVG architecture and
+   data-flow diagrams are better evidence for engineering work than UI captures, and they are safe
+   by construction — they contain only what the author puts in them. Screenshots are an optional
+   later addition, so no page is blocked waiting for one.
+5. **A scrub list now exists** at `.superpowers/sdd/2026-08-03-portfolio-site/SCRUB-LIST.md`,
+   deliberately outside version control. It is the authoritative input to the pre-publish sweep and
+   it also names the handful of documentation files verified clean and safe to quote. Roughly 45
+   real client names are in scope, several of them recognisable companies.
+6. **Proof numbers are scale and test counts only.** 772 test cases across the three desktop apps,
+   38 client accounts weekly — all countable from the repositories. Four of six projects have no
+   documented before/after baseline, so no time-saved claim appears anywhere without the owner
+   supplying one he can defend.
+
+---
+
+## Task 3: Inventory forecasting — synthetic rebuild (DEFERRED, still owner-blocked)
 
 **Files:**
 - Create: a new Google Sheet, owned by the owner's personal Google account, titled `Omni Inventory Forecasting — Portfolio Demo`

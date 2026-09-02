@@ -95,16 +95,65 @@ Every case study page uses one identical skeleton, so the sixth is as fast to wr
 5. **Result** — time saved, errors eliminated, decisions now possible.
 6. **Stack** — tag list.
 
-### The six
+### The six — REVISED 2026-09-02
 
-| Page | Source | Angle |
-|------|--------|-------|
-| `inventory-forecasting.html` | AMS | Flagship — see below. |
-| `bigquery-warehouse.html` | AMS | Scattered spreadsheets consolidated into one source of truth. |
-| `looker-dashboards.html` | AMS | Reporting layer leadership actually opens. Candidate host for the live demo. |
-| `excel-vba-templates.html` | AMS | Reusable templates that removed recurring manual assembly. |
-| `desktop-app.html` | AMS | Standalone internal tool — widest capability signal. |
-| `bpo-reporting-automation.html` | Alorica / Ubiquity | VBA Macros + MS Access replacing legacy Excel; Power BI operational reports. Carries the 8-year depth. |
+The original lineup was drawn up before the owner disclosed his project directories. A read-only
+survey of seven repositories found a far larger and more specific body of work than the CV or the
+initial conversation implied. Full technical detail: `docs/case-study-source-material.md`.
+
+| Page | Angle |
+|------|-------|
+| `campaign-launcher.html` | **Flagship.** Desktop app generating Amazon campaign structures. 510 tests, a legacy VBA port preserving row-order parity, and a self-hosted fail-closed licensing system. |
+| `bid-optimisation-autorun.html` | Scheduled VBA/PowerShell automation across 38 client workbooks. Pilot → staged backups → idempotent scheduled runs. The scale and operational-discipline story. |
+| `search-term-audit.html` | Cannibalisation detection. Carries the best pure-engineering story: a central-directory zip reader written to defeat a silent infinite hang in standard xlsx readers. |
+| `campaign-pausing-tool.html` | Weekly pausing pass across ~38 accounts. Non-mutating by design; 11 adversarial tests on the access-control logic. |
+| `catalog-alerting.html` | Cloud Run + BigQuery diff-and-notify service. Establishes range beyond Excel and the desktop. Honestly scoped as a single-account pilot. |
+| `inventory-forecasting.html` | Multi-location inventory and supply planning in Sheets over BigQuery. Establishes range beyond advertising. |
+
+**Deliberately excluded, with reasons:**
+
+- **The browser-automation bulk exporter.** It automates the Amazon Advertising console through a
+  logged-in browser session, which is plausibly contrary to Amazon's terms and which an agency
+  client may read as a liability rather than a skill. Separately, its core orchestration is an
+  agent-driven skill rather than authored code — the owner's real contribution is the reliability
+  layer around it, which makes for a thinner story than any of the six above.
+- **BigQuery warehouse** and **Looker Studio dashboards** as standalone pages. They are
+  infrastructure that several of the six run on, not deliverables a client buys on their own. They
+  appear as architecture context inside the pages that use them.
+- **BPO reporting automation** (Alorica / Ubiquity). Dropped to the About section and the CV. Six
+  pages of current, verifiable work beats five plus one from a decade ago.
+
+**The flagship moved.** Inventory forecasting was the original flagship; Campaign Launcher now is.
+Three reasons: it is objectively the strongest work in the set, its documentation is clean and
+directly quotable, and — unlike the forecasting sheet — it needs nothing from the owner before its
+page can be written. It therefore also becomes the page that proves out the shared template.
+
+### Positioning consequence
+
+The site's framing sharpens from "automation and data systems builder" to something more specific
+and more valuable: **the sole engineer behind an Amazon advertising agency's internal tooling
+stack**, serving roughly 38 client accounts weekly. Three desktop applications sharing common
+access control, a scheduled automation fleet, a cloud alerting service, and the warehouse and
+spreadsheet layer beneath them.
+
+This matters commercially. "Data analyst who automates reports" competes against thousands of
+profiles at commodity rates. "Builds and operates Amazon PPC tooling for agencies" is a specialist
+niche with far fewer credible practitioners, a well-funded repeat-business client base, and
+materially higher rates. The broad services list stays, so smaller dashboard and spreadsheet jobs
+still convert — but it stops being the headline.
+
+The profile copy written in `docs/profile-copy.md` predates this finding and sells the generalist
+framing. It requires a rewrite against this positioning.
+
+### Proof numbers — verifiable only
+
+**772 test cases** across the three desktop apps (510 + 172 + 90), plus 29 in the alerting service.
+**38 client accounts** processed weekly. Every such figure is countable from the repositories.
+
+Four of the six projects have **no documented before/after baseline**. The site's proof strip
+therefore draws on scale and test counts, which can be verified, and not on time-saved claims,
+which cannot. No "hours saved" figure appears anywhere on the site unless the owner supplies one he
+can defend in a client call.
 
 ### Flagship detail: inventory forecasting
 
@@ -153,6 +202,39 @@ filter it — is built fresh on a public dataset. Nothing belonging to AMS is em
 
 The owner gives AMS leadership a heads-up that anonymized case studies are being published. This is
 a courtesy step outside the build, not a blocker on writing code.
+
+### Scale of the exposure — revised 2026-09-02
+
+The project survey found client data far beyond the single forecasting sheet this section was
+originally written for. Roughly **45 distinct real client and brand names**, real ASINs in the
+thousands, real Amazon Ads entity and campaign identifiers, colleague names, machine hostnames, and
+a GCP project id are spread across the seven repositories. Several are recognisable companies.
+
+The authoritative list lives at `.superpowers/sdd/2026-08-03-portfolio-site/SCRUB-LIST.md`, which
+is **deliberately outside version control**: a file enumerating every client name is the single
+worst thing that could reach a public repository. It carries the regex patterns, the substring and
+word-boundary name lists, the specific files that must never enter the repo, and the short list of
+documentation that was verified clean and is therefore safe to quote.
+
+Two findings there are the owner's to act on and are unrelated to the portfolio: an account
+password recorded as having been pasted into a chat transcript, which needs rotating, and a
+plaintext Excel sheet-protection password appearing in six files including committed markdown.
+
+### Visuals: diagrams first, screenshots second
+
+For these six pages the original screenshot-driven approach is inverted. Hand-authored SVG
+architecture and data-flow diagrams are both **better evidence for engineering work** than UI
+captures and **safe by construction** — they contain only what the author puts in them, so no
+scrub step can fail.
+
+Screenshots become an optional later addition rather than a prerequisite, with two consequences
+worth recording:
+
+- Campaign Launcher's SOP contains **twelve real screen captures**, confirmed by their own captions.
+  None may be used. Any UI capture for that page must be rebuilt against synthetic input.
+- The search term auditor's test fixtures are **synthetically generated by a committed script**.
+  Screenshots for that page can be regenerated from those fixtures rather than rebuilt — the only
+  one of the six where this is true.
 
 ## 7. Testing and acceptance
 
