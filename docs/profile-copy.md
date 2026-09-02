@@ -92,13 +92,57 @@ Full case studies with architecture diagrams and real numbers: <PORTFOLIO_URL>
 
 ---
 
-## Upwork — pending your profile text
+## Upwork — review of the live profile
 
-Your Upwork profile page requires a logged-in Upwork account to view (`This freelancer's profile is
-only available to Upwork customers`), so I can't read the current live version the way I did for
-OnlineJobs.ph. Paste your current headline and overview here (or a screenshot) and I'll give you
-the same before/after review. In the meantime, here's a rewritten version against the same
-positioning as a starting point:
+Read directly from the owner's own edit dashboard on 2026-09-03 (via an authenticated browser
+session, at the owner's direction).
+
+**What's there now:**
+- Title: "Reporting Analyst | Excel Expert | VBA | Power BI | Data Automation" — same generic
+  framing problem as OnlineJobs.ph: reads as a reporting/BI analyst, not as the tooling engineer
+  the case studies actually document.
+- Rate: $15.00/hr.
+- Overview: "6 years of experience as a Reporting Analyst," Excel/Power BI/Google Data Studio —
+  no mention of BigQuery, the three shipped desktop apps, the bid-optimisation fleet, Cloud Run, or
+  the portfolio site.
+- Self-reported Skills tags: Microsoft Excel, Macro Programming, Excel Formula, Excel Macros, Data
+  Analytics & Visualization Software, Data Analytics — six tags, all Excel/BI-flavored. **This
+  actively narrows what Upwork search surfaces you for** — none of BigQuery, SQL, Python, Google
+  Apps Script, Electron, TypeScript, or anything Amazon-Ads-specific is tagged, so a client
+  searching for those terms won't find this profile at all.
+- ID verification: **Unverified.** Upwork surfaces this to clients and it affects trust/hire rate.
+- Portfolio: no items published yet — nowhere to attach the five case studies once the site is
+  live.
+- Work history: **zero completed Upwork contracts** — this is a fresh, unestablished profile
+  (worth knowing for strategy: your first few proposals are competing without reviews to lean on).
+
+**One thing to flag rather than assume:** the profile's Employment history lists **"Senior
+Analyst/Database Administrator | Jones Lang LaSalle — March 2023 – Present"**. This role doesn't
+appear anywhere else in this project — not in the CV, not in `docs/case-study-source-material.md`,
+not in any prior conversation about your work history. I don't know if this is a genuinely current
+second/prior role that just hasn't come up, or a stale entry left over from an old version of this
+profile that should be updated or removed. Worth checking and correcting either way, since as
+written it currently contradicts the CV's timeline (which shows Ubiquity ending Feb 2023, then
+Alorica, Intelegencia, and now AMS Management, with no JLL entry at all).
+
+**Recommended changes, in priority order:**
+
+1. **Resolve the Jones Lang LaSalle entry** — see above. Whatever the real story is, the current
+   Upwork employment history and the CV should tell the same one.
+2. **Expand the Skills tags** to include what you actually build now — BigQuery, SQL, Google Apps
+   Script, Python, Electron, TypeScript, PowerShell — so Upwork's own search surfaces you for the
+   jobs that match the new positioning, not just generic Excel/reporting gigs.
+3. **Verify your identity.** Unverified accounts read as less trustworthy to clients evaluating a
+   proposal, and it's a one-time fix.
+4. **Rewrite the title and overview** around the tooling specialism — see the ready-to-paste
+   version below.
+5. **Publish portfolio items** once the site is live — one per case study, linking to its own page
+   (see the attachment note at the bottom of this doc).
+6. **Reconsider the rate** the same way as OnlineJobs.ph — $15/hr is reasonable for general
+   reporting work but likely under what the Amazon Ads tooling specialism can command; your call on
+   exactly where to land.
+
+**Ready-to-paste replacement title and overview**, same positioning as above:
 
 **Upwork headline (under 70 characters):**
 
