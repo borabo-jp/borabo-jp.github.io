@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog Alerting — John Patrick Borabo</title>
+<meta name="description" content="A scheduled Cloud Run and BigQuery service that diffs today's catalog state against a rolling history and emails a grouped digest of what actually changed, piloted on a single seller account.">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-header__name" href="../index.html">John Patrick Borabo</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html#work" aria-current="page">Work</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#stack">Stack</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="section">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">Amazon Ads · Cloud Pipeline</p>
+    <h1 class="h1">Catching catalog problems automatically instead of stumbling into them</h1>
+    <p class="lede">A scheduled Cloud Run and BigQuery service that diffs today's catalog state
+      against a rolling history snapshot and emails a grouped digest of what actually changed —
+      account health, inventory, buy box, and listing status — instead of leaving those issues to
+      be found by whoever happens to look.</p>
+    <ul class="tags">
+      <li class="tag">Python</li>
+      <li class="tag">BigQuery</li>
+      <li class="tag">Cloud Run</li>
+      <li class="tag">Cloud Scheduler</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap--narrow">
+    <ul class="proof">
+      <li>
+        <span class="proof__num">5</span>
+        <span class="proof__label">independent diff rules</span>
+      </li>
+      <li>
+        <span class="proof__num">29</span>
+        <span class="proof__label">pytest tests, all behavioural</span>
+      </li>
+      <li>
+        <span class="proof__num">&lt;2s</span>
+        <span class="proof__label">full test suite runtime</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap--narrow prose">
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Context</h2>
+      <p>A third-party report-ingestion tool lands Amazon Selling Partner API catalog data in
+        BigQuery: account health signals, inventory status, buy box standing, and listing state.
+        The data arrives; nobody was watching it. Every prior tool in this portfolio runs on
+        Electron and VBA-adjacent Windows automation — this one is the odd stack out on purpose,
+        a Python service running on Cloud Run rather than a desktop app, built to prove the same
+        engineering habits (pure functions, tested rules, failure isolation) carry over to a
+        different platform. It's currently a pilot on a single seller account with three
+        subscribed recipients, not a fleet-wide rollout.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">The problem</h2>
+      <p>Catalog state changes silently. An account health flag, a listing sliding from active to
+        blocked, inventory going stranded or unfulfillable, a buy box lost — none of it announces
+        itself. Someone has to go look, and by the time they do, the change is old news. The
+        underlying API data doesn't make that easier: account health in particular arrives as a
+        deeply nested, semi-structured report, with single-element array envelopes wrapping fields
+        that should just be scalars, and one identifier column that is reliably null and has to be
+        joined in from a different report entirely. A digest that's supposed to be readable has to
+        get past that shape first.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">What I built</h2>
+      <p>A Cloud Scheduler job hits a Cloud Run HTTP endpoint on a cron, authenticated by OIDC
+        rather than a static secret. The service pulls today's catalog snapshot from BigQuery,
+        compares it against a rolling history table, and runs five independent diff rules over the
+        result: account health, unfulfillable inventory, stranded inventory, buy box status, and
+        blocked-versus-active listings. Each rule is a pure function — data in, a list of changes
+        out, no I/O inside it — which is what keeps the suite fast to test and easy to reason
+        about. A recursive leaf-diff walker handles the account health report specifically: it
+        unwraps the platform's single-element-array envelopes and strips known-noisy subfields,
+        collapsing what would otherwise be a wall of raw nested output into one human-readable line
+        per real change.</p>
+      <figure class="figure">
+        <img src="../assets/img/catalog-alerting-arch.svg" alt="Diagram: a Cloud Scheduler cron trigger calls an OIDC-authenticated Cloud Run endpoint, which compares today's BigQuery catalog snapshot against a rolling history table. That feeds five independent, isolated diff rules running in parallel — account health, unfulfillable inventory, stranded inventory, buy box status, and blocked-versus-active listings — each wrapped in its own failure boundary so one rule's BigQuery timeout cannot block the other four or their emails. The five results converge into a grouped digest, sent as HTML and plain-text email per subscribed recipient over SMTP.">
+        <figcaption class="figure__cap">Pipeline: Cloud Scheduler (cron) &rarr; Cloud Run endpoint
+          (OIDC) &rarr; BigQuery snapshot vs. rolling history &rarr; five isolated diff rules in
+          parallel &rarr; grouped per-recipient digest (HTML + plain text via SMTP).</figcaption>
+      </figure>
+      <p>Each of the five categories is wrapped in its own failure boundary: a BigQuery timeout in
+        one cannot take down the other four or block their emails from going out. A completion
+        guard treats a run's window as done only once all five categories have logged a fresh
+        success, so a partial failure gets picked up and retried automatically by the next
+        invocation — no dead-letter queue, no manual replay. A dry-run mode lets a change to the
+        rules get exercised without sending anything. The output is one grouped digest per
+        subscribed recipient, in both HTML and plain text, enriched with a product name and image
+        pulled alongside each change (the real digests carry real product data; nothing from a
+        live account appears here). Secrets — SMTP credentials, the OIDC audience — come from
+        Secret Manager and are injected at deploy time rather than baked into the image.</p>
+      <p>The less glamorous parts are documented rather than left for the next person to
+        rediscover: the null product-identifier column and the join that works around it,
+        batch-scoped deduplication, and where the pipeline upserts a table versus overwriting it
+        outright — all called out in docstrings at the point where getting it wrong would silently
+        corrupt a digest.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Result</h2>
+      <ul class="result-list">
+        <li>Five independent diff rules — account health, unfulfillable inventory, stranded
+          inventory, buy box status, blocked-versus-active listings — run as pure functions, each
+          isolated so one category's failure never blocks the other four.</li>
+        <li>A self-healing idempotency guard means a partial failure is retried automatically by
+          the next scheduled invocation, with no dead-letter queue to manage.</li>
+        <li>A recursive leaf-diff walker turns the account health report's deeply nested,
+          semi-structured shape into one readable line per real change instead of raw output.</li>
+        <li>29 pytest tests, all behavioural — synthetic dataframes in, exact change and digest
+          objects asserted out — with no BigQuery or SMTP calls; the full suite runs in under two
+          seconds.</li>
+        <li>Honestly scoped: this runs today as a pilot on one seller account with three
+          subscribed recipients. It's evidence of range onto a Python and cloud stack and of the
+          same engineering discipline as the rest of this portfolio, not a claim of fleet-wide
+          deployment.</li>
+      </ul>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Stack</h2>
+      <ul class="tags">
+        <li class="tag">Python</li>
+        <li class="tag">BigQuery client 3.x</li>
+        <li class="tag">pandas 2.x</li>
+        <li class="tag">db-dtypes</li>
+        <li class="tag">smtplib</li>
+        <li class="tag">zoneinfo</li>
+        <li class="tag">Cloud Run</li>
+        <li class="tag">Cloud Scheduler</li>
+        <li class="tag">Secret Manager</li>
+        <li class="tag">pytest</li>
+      </ul>
+      <p class="figure__cap">All figures and examples on this page are drawn from the owner's
+        own repositories. No client information appears anywhere on this site.</p>
+    </section>
+
+    <p><a class="btn btn--ghost" href="../index.html#work">&larr; Back to work</a></p>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>John Patrick Borabo — Automation &amp; Data Systems Specialist. Antipolo City, Philippines (UTC+8).</p>
+    <p><a href="mailto:jaypee@amsmanagement.agency">jaypee@amsmanagement.agency</a></p>
+  </div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

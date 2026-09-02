@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 370" role="img" aria-label="Flow diagram. A Cloud Scheduler cron trigger calls an OIDC-authenticated Cloud Run endpoint, which compares today's BigQuery catalog snapshot against a rolling history table. That feeds five independent, isolated diff rules running in parallel — account health, unfulfillable inventory, stranded inventory, buy box status, and blocked-versus-active listings — each wrapped in its own failure boundary so one rule's BigQuery timeout cannot block the other four or their emails. The five results converge into a grouped digest, sent as HTML and plain-text email per subscribed recipient over SMTP.">
+<title>Catalog alerting pipeline: Cloud Scheduler to Cloud Run to BigQuery compare to five isolated diff rules to grouped digest email</title>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#4a545e"/>
+  </marker>
+  <style>
+    .box { fill: #e7f0ef; stroke: #0f5c5a; stroke-width: 1.5; }
+    .box-dark { fill: #0f5c5a; stroke: #0a3f3e; stroke-width: 1.5; }
+    .lbl { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #14181c; }
+    .lbl-light { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #fbfaf8; }
+    .sub { font-family: ui-monospace, Consolas, monospace; fill: #4a545e; }
+    .sub-light { font-family: ui-monospace, Consolas, monospace; fill: #e7f0ef; }
+    .type { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #0a3f3e; }
+    .flow { stroke: #4a545e; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .rail { stroke: #4a545e; stroke-width: 1.25; fill: none; }
+    .dash { stroke: #7a8288; stroke-width: 1; fill: none; stroke-dasharray: 3 2.5; }
+  </style>
+</defs>
+
+<!-- Cloud Scheduler -->
+<rect class="box" x="10" y="8" width="440" height="50" rx="4"/>
+<text class="lbl" x="230" y="30" font-size="16" text-anchor="middle">Cloud Scheduler</text>
+<text class="sub" x="230" y="48" font-size="11" text-anchor="middle">cron trigger</text>
+
+<path class="flow" d="M230,58 L230,74"/>
+
+<!-- Cloud Run endpoint -->
+<rect class="box-dark" x="10" y="74" width="440" height="50" rx="4"/>
+<text class="lbl-light" x="230" y="96" font-size="16" text-anchor="middle">Cloud Run endpoint</text>
+<text class="sub-light" x="230" y="114" font-size="11" text-anchor="middle">OIDC-authenticated invocation</text>
+
+<path class="flow" d="M230,124 L230,140"/>
+
+<!-- BigQuery compare -->
+<rect class="box" x="10" y="140" width="440" height="50" rx="4"/>
+<text class="lbl" x="230" y="162" font-size="16" text-anchor="middle">BigQuery compare</text>
+<text class="sub" x="230" y="180" font-size="11" text-anchor="middle">today's snapshot vs. rolling history table</text>
+
+<!-- Fan-out to five isolated diff rules -->
+<path class="rail" d="M230,190 L230,202"/>
+<path class="rail" d="M51,202 L408,202"/>
+<path class="flow" d="M51,202 L51,214"/>
+<path class="flow" d="M140,202 L140,214"/>
+<path class="flow" d="M229,202 L229,214"/>
+<path class="flow" d="M318,202 L318,214"/>
+<path class="flow" d="M408,202 L408,214"/>
+
+<!-- Five independent diff rules, each with its own failure-boundary inset -->
+<g>
+  <rect class="box" x="10" y="214" width="82" height="64" rx="4"/>
+  <rect class="dash" x="13" y="217" width="76" height="58" rx="3"/>
+  <text class="type" x="51" y="240" font-size="8.5" text-anchor="middle">Account</text>
+  <text class="type" x="51" y="253" font-size="8.5" text-anchor="middle">health</text>
+
+  <rect class="box" x="99" y="214" width="82" height="64" rx="4"/>
+  <rect class="dash" x="102" y="217" width="76" height="58" rx="3"/>
+  <text class="type" x="140" y="240" font-size="8.5" text-anchor="middle">Unfulfillable</text>
+  <text class="type" x="140" y="253" font-size="8.5" text-anchor="middle">inventory</text>
+
+  <rect class="box" x="188" y="214" width="82" height="64" rx="4"/>
+  <rect class="dash" x="191" y="217" width="76" height="58" rx="3"/>
+  <text class="type" x="229" y="240" font-size="8.5" text-anchor="middle">Stranded</text>
+  <text class="type" x="229" y="253" font-size="8.5" text-anchor="middle">inventory</text>
+
+  <rect class="box" x="277" y="214" width="82" height="64" rx="4"/>
+  <rect class="dash" x="280" y="217" width="76" height="58" rx="3"/>
+  <text class="type" x="318" y="240" font-size="8.5" text-anchor="middle">Buy box</text>
+  <text class="type" x="318" y="253" font-size="8.5" text-anchor="middle">status</text>
+
+  <rect class="box" x="366" y="214" width="84" height="64" rx="4"/>
+  <rect class="dash" x="369" y="217" width="78" height="58" rx="3"/>
+  <text class="type" x="408" y="240" font-size="8.5" text-anchor="middle">Blocked vs.</text>
+  <text class="type" x="408" y="253" font-size="8.5" text-anchor="middle">active</text>
+</g>
+
+<!-- Convergence -->
+<path class="rail" d="M51,278 L51,290"/>
+<path class="rail" d="M140,278 L140,290"/>
+<path class="rail" d="M229,278 L229,290"/>
+<path class="rail" d="M318,278 L318,290"/>
+<path class="rail" d="M408,278 L408,290"/>
+<path class="rail" d="M51,290 L408,290"/>
+<path class="flow" d="M230,290 L230,306"/>
+
+<!-- Grouped digest -->
+<rect class="box-dark" x="10" y="306" width="440" height="56" rx="4"/>
+<text class="lbl-light" x="230" y="330" font-size="16" text-anchor="middle">Grouped digest</text>
+<text class="sub-light" x="230" y="349" font-size="11" text-anchor="middle">HTML + plain text, per recipient, via SMTP</text>
+</svg>
