@@ -153,12 +153,14 @@
           211,000 lines of macro.</li>
         <li>A session crash no longer costs the working file: the crash-recovery snapshot
           recovers in-progress work instead of losing it.</li>
-        <li>The generation engine's row order is asserted by parity tests, so a future refactor
-          cannot silently reorder rows that Amazon's bulk format parses positionally.</li>
-        <li>Search-term gap mining turns a raw Amazon report into ready-to-review keyword and
-          product rows with computed bids, instead of a manual read-through of the report.</li>
-        <li>Every export passes through the same 8 validation rules regardless of who is
-          generating the file, closing the gap where a rule only existed in one person's head.</li>
+        <li>The generation engine's row order is asserted by parity tests against the legacy
+          tool's output, so a future refactor can't quietly break the parent-child structure a
+          bulk upload depends on — a campaign row still has to precede its own ad group, product
+          ad, and keyword rows.</li>
+        <li>Search-term gap mining turns a raw Amazon search term report into ready-to-review
+          keyword and product rows with computed bids.</li>
+        <li>Every export passes through the same 8 validation rules and 6 export warnings before
+          it reaches Amazon, regardless of who is generating the file.</li>
       </ul>
     </section>
 
