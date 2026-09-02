@@ -12,6 +12,7 @@ Desktop.ini
 
 # Build process scratch files
 .superpowers/
+.planning/
 
 # Working files, not deliverables
 /*.pdf

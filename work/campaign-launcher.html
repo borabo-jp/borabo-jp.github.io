@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaign Launcher — John Patrick Borabo</title>
+<meta name="description" content="A desktop app that expands a spreadsheet of products and keywords into upload-ready Amazon Sponsored Products bulk files, replacing a 211,000-line Excel macro.">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-header__name" href="../index.html">John Patrick Borabo</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html#work" aria-current="page">Work</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#stack">Stack</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="section">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">Amazon Ads · Desktop App</p>
+    <h1 class="h1">Replacing a 211,000-line Excel macro with a tested campaign generator</h1>
+    <p class="lede">A Windows desktop app that turns a spreadsheet of products and keywords into
+      upload-ready Amazon Sponsored Products bulk files — built as a faithful, testable
+      reimplementation of a legacy VBA workbook.</p>
+    <ul class="tags">
+      <li class="tag">Electron</li>
+      <li class="tag">React</li>
+      <li class="tag">TypeScript</li>
+      <li class="tag">Vite</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap--narrow">
+    <ul class="proof">
+      <li>
+        <span class="proof__num">510</span>
+        <span class="proof__label">automated test cases</span>
+      </li>
+      <li>
+        <span class="proof__num">1,315</span>
+        <span class="proof__label">gap keywords surfaced in one import</span>
+      </li>
+      <li>
+        <span class="proof__num">5</span>
+        <span class="proof__label">parallel campaign types generated per product</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap--narrow prose">
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Context</h2>
+      <p>Built for an Amazon Ads media-buying operation that generates Sponsored Products
+        campaigns for its client accounts. The output is a bulk file: a spreadsheet formatted
+        to Amazon's exact column rules that gets uploaded directly into Seller Central or the
+        Ads console. Getting that file right the first time matters — a malformed row either
+        fails the upload or, worse, uploads wrong.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">The problem</h2>
+      <p>The process this replaced lived entirely inside one Excel workbook, driven by roughly
+        211,000 lines of extracted VBA macro code. The workbook was simultaneously the data
+        entry surface, the business logic, and the output — product lists, keyword lists, and
+        the campaign-building rules all lived in the same live working file. Changing a rule
+        meant editing the macro that also held the data. There was no separation between what
+        you typed and what ran.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">What I built</h2>
+      <p>The app takes three input grids — products, keywords, and a search-term gap tab — and
+        expands each product into the full row stack Amazon's bulk format requires: campaign,
+        bid adjustments, ad group, product ad, and keyword or target rows, plus negatives.
+        It does this across five parallel campaign types per product: Auto, Broad, Phrase,
+        Exact, and product-page targeting, which itself splits into self, competitor, and
+        brand-reinforcement variants.</p>
+      <figure class="figure">
+        <img src="../assets/img/campaign-launcher-arch.svg" alt="Diagram: input grids for products, keywords, and search-term gaps feed a validation stage of eight hard rules, then a generation engine that expands each product into five parallel campaign types — Auto, Broad, Phrase, Exact, and product-page targeting — before all five converge into a single bulk export as .xlsx or .csv.">
+        <figcaption class="figure__cap">Data flow: input grids → validation (8 rules) →
+          generation engine → five campaign types (Auto, Broad, Phrase, Exact, product-page
+          targeting) → bulk export as .xlsx or .csv.</figcaption>
+      </figure>
+      <p>The search-term gap tab ingests a real Amazon search term report and mines converting
+        terms the account is not yet bidding on, generating product and keyword rows with
+        computed bids. One documented import surfaced 1,315 gap keywords in a single pass.
+        Before anything is exported, 8 hard validation rules and 6 export warnings check budget
+        floors, bid floors, date format, the 120-character campaign-name limit, and dangling
+        product references.</p>
+      <p>The app is deliberately stateless: no database, no save file. Everything lives in
+        memory for the session, with a template import/export round trip and a crash-recovery
+        snapshot as the only persistence. Export runs through ExcelJS for .xlsx or a
+        hand-written RFC 4180 encoder for .csv. The SKU column is forced to text format on
+        export — ported directly from the legacy tool's number-format directive — so Excel
+        cannot silently render a numeric-looking SKU in scientific notation.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">The migration</h2>
+      <p>This is a port, not a rewrite from a blank page, and the distinction shaped every
+        decision. The generation engine follows the legacy VBA's main per-product loop and
+        preserves its exact processing order, so parity tests can assert directly on row order
+        against the old tool's output. That constraint made the port harder to write than a
+        clean-room version would have been, and it is also why the port could be trusted.</p>
+      <p>Where the legacy behaviour had a known bug that other parts of the system had quietly
+        come to depend on, I kept the bug rather than fix it. Exact-match campaigns get no
+        negative keywords at all, because the legacy tool had a suppression bug there and
+        fixing it now would change live campaign behaviour in a way nobody asked for. That
+        asymmetry is documented in the migration flowchart, not left for the next person to
+        rediscover by accident.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Licensing</h2>
+      <p>The app is self-hosted and distributed as an unsigned portable Windows executable, so
+        it needed its own device gate rather than relying on a platform's license server. The
+        gate is checked before any window or IPC channel exists, and it is built with
+        dependency injection so the whole policy can be unit tested with no Electron process,
+        no filesystem, and no real clock.</p>
+      <p>It fails closed in every direction I could think to test. An allow-list that is empty
+        but readable means "matches nobody," not "check disabled" — an accidentally cleared
+        sheet locks everyone out rather than unlocking the team. A 14-day offline grace period
+        is backed by a local cache that is bound to the machine's hostname, so copying the
+        cache file to another machine grants nothing. A clock rolled backward, or a corrupted
+        timestamp, fails closed rather than manufacturing extra grace. The allow-list's path is
+        hard-coded and deliberately kept out of user preferences, because a lock a user can
+        repoint is not a lock. And a thrown error anywhere inside the gate is caught and treated
+        as a block, never as allowed-by-default.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Result</h2>
+      <ul class="result-list">
+        <li>Campaign rules live in versioned, tested code instead of inside the same file as the
+          product data — a rule change is a code change and a test run, not a search through
+          211,000 lines of macro.</li>
+        <li>A session crash no longer costs the working file: the crash-recovery snapshot
+          recovers in-progress work instead of losing it.</li>
+        <li>The generation engine's row order is asserted by parity tests, so a future refactor
+          cannot silently reorder rows that Amazon's bulk format parses positionally.</li>
+        <li>Search-term gap mining turns a raw Amazon report into ready-to-review keyword and
+          product rows with computed bids, instead of a manual read-through of the report.</li>
+        <li>Every export passes through the same 8 validation rules regardless of who is
+          generating the file, closing the gap where a rule only existed in one person's head.</li>
+      </ul>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Stack</h2>
+      <ul class="tags">
+        <li class="tag">Electron 33.3</li>
+        <li class="tag">React 18.3</li>
+        <li class="tag">AG Grid 32.3</li>
+        <li class="tag">Zustand 5.0</li>
+        <li class="tag">ExcelJS 4.4</li>
+        <li class="tag">SheetJS 0.18</li>
+        <li class="tag">TypeScript 5.7</li>
+        <li class="tag">Vite 5.4</li>
+        <li class="tag">Vitest</li>
+        <li class="tag">Testing Library</li>
+        <li class="tag">jsdom</li>
+      </ul>
+      <p class="figure__cap">All figures and examples on this page are drawn from the owner's
+        own repositories. No client information appears anywhere on this site.</p>
+    </section>
+
+    <p><a class="btn btn--ghost" href="../index.html#work">&larr; Back to work</a></p>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>John Patrick Borabo — Automation &amp; Data Systems Specialist. Antipolo City, Philippines (UTC+8).</p>
+    <p><a href="mailto:jaypee@amsmanagement.agency">jaypee@amsmanagement.agency</a></p>
+  </div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
