@@ -116,19 +116,16 @@ session, at the owner's direction).
 - Work history: **zero completed Upwork contracts** — this is a fresh, unestablished profile
   (worth knowing for strategy: your first few proposals are competing without reviews to lean on).
 
-**One thing to flag rather than assume:** the profile's Employment history lists **"Senior
-Analyst/Database Administrator | Jones Lang LaSalle — March 2023 – Present"**. This role doesn't
-appear anywhere else in this project — not in the CV, not in `docs/case-study-source-material.md`,
-not in any prior conversation about your work history. I don't know if this is a genuinely current
-second/prior role that just hasn't come up, or a stale entry left over from an old version of this
-profile that should be updated or removed. Worth checking and correcting either way, since as
-written it currently contradicts the CV's timeline (which shows Ubiquity ending Feb 2023, then
-Alorica, Intelegencia, and now AMS Management, with no JLL entry at all).
+**Resolved 2026-09-03:** the profile's Employment history listed "Senior Analyst/Database
+Administrator | Jones Lang LaSalle — March 2023 – Present," which didn't appear anywhere else in
+this project and contradicted the CV timeline. Owner confirmed it should be removed — deleted
+directly from the live profile (owner logged in, action taken with explicit permission). Employment
+history now reads Ubiquity → TechMahindra (Reports Analyst) → TechMahindra (Escalation Specialist),
+consistent with the CV.
 
 **Recommended changes, in priority order:**
 
-1. **Resolve the Jones Lang LaSalle entry** — see above. Whatever the real story is, the current
-   Upwork employment history and the CV should tell the same one.
+1. ~~Resolve the Jones Lang LaSalle entry~~ — done.
 2. **Expand the Skills tags** to include what you actually build now — BigQuery, SQL, Google Apps
    Script, Python, Electron, TypeScript, PowerShell — so Upwork's own search surfaces you for the
    jobs that match the new positioning, not just generic Excel/reporting gigs.
