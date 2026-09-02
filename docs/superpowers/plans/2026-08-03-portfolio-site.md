@@ -924,7 +924,7 @@ Hand-written SVG, no tool needed. Save as `assets/img/inventory-forecast-arch.sv
 ```bash
 cd /c/Portfolio && python -c "
 import pathlib
-banned = ['WLD', 'Omni Forecasting', 'Cirro', 'Aire-master', 'Airemaster', 'AWD', 'SWI']
+banned = []  # see the git-ignored SCRUB-LIST.md at .superpowers/sdd/2026-08-03-portfolio-site/ for the real list — never hard-code real client tokens in a tracked file
 hits = []
 for p in pathlib.Path('.').rglob('*'):
     if p.is_file() and p.suffix.lower() in {'.html', '.svg', '.css', '.js', '.md'} and '.git' not in p.parts:
@@ -1393,7 +1393,7 @@ Run before the first deploy, and again after any later content change. Once the 
 ```bash
 cd /c/Portfolio && python -c "
 import pathlib, re
-banned = ['WLD', 'Omni Forecasting', 'Cirro', 'Aire-master', 'Airemaster', 'SWI Inventory']
+banned = []  # see the git-ignored SCRUB-LIST.md at .superpowers/sdd/2026-08-03-portfolio-site/ for the real list — never hard-code real client tokens in a tracked file
 asin = re.compile(r'\bB0[0-9A-Z]{8}\b')
 hits = []
 for p in pathlib.Path('.').rglob('*'):
