@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bid Optimisation Autorun — John Patrick Borabo</title>
+<meta name="description" content="Scheduled VBA/PowerShell automation that runs a weekly Amazon Sponsored Products and Sponsored Display bid-optimisation cycle across a 38-workbook fleet without a single bad upload.">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-header__name" href="../index.html">John Patrick Borabo</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html#work" aria-current="page">Work</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#stack">Stack</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="section">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">Amazon Ads · Automation</p>
+    <h1 class="h1">Automating a 38-workbook weekly bid cycle without a single bad upload</h1>
+    <p class="lede">A scheduled VBA and PowerShell system that runs the weekly Amazon Sponsored
+      Products and Sponsored Display bid-optimisation cycle across a fleet of client workbooks —
+      rolled out through a genuine pilot, staged backups, and a safety boundary that never lets
+      automation touch the outbound upload.</p>
+    <ul class="tags">
+      <li class="tag">VBA</li>
+      <li class="tag">PowerShell</li>
+      <li class="tag">Task Scheduler</li>
+      <li class="tag">Excel COM</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap--narrow">
+    <ul class="proof">
+      <li>
+        <span class="proof__num">38</span>
+        <span class="proof__label">client workbooks in the autorun fleet</span>
+      </li>
+      <li>
+        <span class="proof__num">36</span>
+        <span class="proof__label">accounts fully processed in a single logged run</span>
+      </li>
+      <li>
+        <span class="proof__num">0</span>
+        <span class="proof__label">failures across the fleet</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap--narrow prose">
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Context</h2>
+      <p>The agency runs a proprietary weekly bid-optimisation process for its Amazon Sponsored
+        Products and Sponsored Display accounts: one Excel/VBA workbook per client ad account
+        ingests that week's bulk export and recomputes bids, budgets, and placement adjustments
+        against the account's target ACOS. With close to 40 client accounts on the process, the
+        weekly cycle meant opening, running, and saving dozens of workbooks by hand.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">The problem</h2>
+      <p>Each client workbook already encoded the bid logic correctly — the fixed-ACOS bid engine,
+        adjustable placement logic, budget rules, and a client-tunable variables sheet holding
+        target ACOS and budget increase/cutback thresholds were all proven. What the process
+        lacked was a way to trigger the import step across the fleet without a person opening
+        every file in turn. A prep-stage workbook already scanned the shared-drive tree of client
+        account folders and wrote a standardised weekly prep file per client — the missing piece
+        was getting that prep file into each client workbook reliably, on a schedule, without
+        anyone babysitting it.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">What I built</h2>
+      <p>A four-stage pipeline. Prep scans roughly 35 client account folders on the shared drive,
+        finds each week's raw bulk export, cleans and splits columns per client-specific rules
+        (carving B2B and top-of-search campaigns into separate outputs), and writes a
+        standardised weekly prep file into the client's week folder — human-triggered, once a
+        week. The bid engine — around 40 per-client workbooks — separates the fixed-ACOS logic,
+        placement logic, budget rules, and a QA cross-check view with a change log, and imports
+        the prep file through a button-driven macro. Autorun is a PowerShell and Task Scheduler
+        watcher that drives Excel over COM, polling every 15 minutes while the operator is signed
+        in, detecting new prep files by path, timestamp, and size, and triggering the import step
+        without a human opening each workbook. A parallel branch applies the same bid logic to a
+        non-Amazon retail advertising platform's own bulk keyword export format.</p>
+      <figure class="figure">
+        <img src="../assets/img/bid-optimisation-arch.svg" alt="Diagram: prep scans about 35 client account folders on a shared drive, cleans and splits that week's raw bulk export, and writes a standardised weekly prep file. That feeds the bid engine, roughly 40 per-client workbooks that recompute bids, budgets, and placement adjustments against each client's target ACOS. That feeds autorun, a PowerShell and Task Scheduler watcher driving Excel over COM that polls every 15 minutes and imports each new prep file automatically. Autorun stops at import — a dashed boundary box marks that it never reaches the outbound upload — and the pipeline ends at human review before the upload-ready bulk export.">
+        <figcaption class="figure__cap">Pipeline: prep (~35 client folders) → bid engine (~40
+          workbooks, target ACOS) → autorun (PowerShell/Task Scheduler over COM, 15-minute
+          polling) → human review → upload-ready bulk export. Autorun's boundary stops at
+          import; it never reaches the outbound upload.</figcaption>
+      </figure>
+      <p>Deliberate scope-limiting is the core safety property: the scheduled automation performs
+        only the read/import half of the pipeline — never the change log, never the outbound
+        upload to Amazon. A bad run costs a re-run, never a bad upload. A persistent per-workbook
+        idempotency ledger, keyed by prep-file signature, means a file is never imported twice. A
+        documented result-code vocabulary distinguishes success, no-file-this-week,
+        skipped-because-locked, unpatched, and error/timeout, so any run's outcome is legible
+        without opening a single workbook. A dry-run mode plus a separate check command let a
+        second operator verify what would happen before running for real, and a hand-off package
+        — with the workbook-modifying tools deliberately excluded — lets a colleague run the
+        weekly cycle in the owner's absence.</p>
+      <p>Rollout was staged deliberately rather than pushed in one pass: a genuine two-workbook
+        pilot covering both engine variants was reviewed and approved before any of the other
+        client workbooks were touched. Named, staged backups were taken before every rollout
+        milestone — one pristine copy per stage, not one generic backup, so any single stage of
+        the migration could be independently rolled back. Every actual autorun execution keeps a
+        rolling window of up to five timestamped copies per workbook, and nothing is ever
+        deleted — superseded files are renamed, not removed.</p>
+      <p>Three real defects surfaced during rollout, each root-caused from hard evidence rather
+        than guessed. A VBA declaration-order corruption was crashing Excel with an access
+        violation; it was diagnosed from Windows Application event-log crash records rather than
+        by trial and error. Separately, a compile probe that should have caught broken modules
+        could pass one anyway, because it only tested a procedure above the fault — that was
+        caught by screenshotting the Excel process window handle to find a hidden break-mode
+        dialog the probe couldn't see. Both became standing runbook rules rather than one-off
+        fixes.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Result</h2>
+      <ul class="result-list">
+        <li>36 of 38 fleet workbooks fully processed end to end in a single logged run — 35 full
+          successes and 1 partial run at 99.98% row completeness.</li>
+        <li>All 38 workbooks in the autorun fleet are patched for scheduled import, with 36
+          seeded with live data and 0 failures recorded across the fleet.</li>
+        <li>A full hands-off run completes in about 40 minutes; a measured partial run covered 21
+          of 38 workbooks in about 19 minutes.</li>
+        <li>The idempotency ledger, result-code vocabulary, and rolling backup window make every
+          run's outcome traceable after the fact, without reopening a single workbook.</li>
+        <li>The read/import-only scope boundary means the automation has never touched the
+          outbound upload to Amazon — that step stays a deliberate, human-reviewed action.</li>
+      </ul>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Stack</h2>
+      <ul class="tags">
+        <li class="tag">Excel VBA</li>
+        <li class="tag">PowerShell</li>
+        <li class="tag">Windows Task Scheduler</li>
+        <li class="tag">Excel COM automation</li>
+      </ul>
+      <p class="figure__cap">All figures and examples on this page are drawn from the owner's
+        own repositories. No client information appears anywhere on this site.</p>
+    </section>
+
+    <p><a class="btn btn--ghost" href="../index.html#work">&larr; Back to work</a></p>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>John Patrick Borabo — Automation &amp; Data Systems Specialist. Antipolo City, Philippines (UTC+8).</p>
+    <p><a href="mailto:jaypee@amsmanagement.agency">jaypee@amsmanagement.agency</a></p>
+  </div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

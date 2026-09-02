@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Flow diagram. Prep stage scans a shared-drive tree of about 35 client account folders, cleans and splits that week's raw bulk export, and writes a standardised weekly prep file. That feeds the bid engine stage, roughly 40 per-client workbooks that recompute bids, budgets, and placement adjustments against each client's target ACOS. That feeds the autorun stage, a PowerShell and Task Scheduler watcher that drives Excel over COM and polls every 15 minutes to import each new prep file automatically. Autorun stops at import — the final stage is a human-reviewed upload-ready bulk export, and the diagram marks that the autorun boundary never reaches the outbound upload to Amazon.">
+<title>Bid optimisation pipeline: prep to bid engine to autorun to human-reviewed bulk export</title>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#4a545e"/>
+  </marker>
+  <style>
+    .box { fill: #e7f0ef; stroke: #0f5c5a; stroke-width: 1.5; }
+    .box-dark { fill: #0f5c5a; stroke: #0a3f3e; stroke-width: 1.5; }
+    .box-dashed { fill: #fbfaf8; stroke: #4a545e; stroke-width: 1.5; stroke-dasharray: 5,4; }
+    .lbl { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #14181c; }
+    .lbl-light { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #fbfaf8; }
+    .sub { font-family: ui-monospace, Consolas, monospace; fill: #4a545e; }
+    .sub-light { font-family: ui-monospace, Consolas, monospace; fill: #e7f0ef; }
+    .flow { stroke: #4a545e; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .note { font-family: ui-sans-serif, system-ui, sans-serif; font-style: italic; fill: #4a545e; }
+  </style>
+</defs>
+
+<!-- Prep -->
+<rect class="box" x="10" y="8" width="380" height="56" rx="4"/>
+<text class="lbl" x="200" y="30" font-size="16" text-anchor="middle">Prep</text>
+<text class="sub" x="200" y="49" font-size="11" text-anchor="middle">scans ~35 client folders · cleans and splits weekly bulk export</text>
+
+<path class="flow" d="M200,64 L200,84"/>
+
+<!-- Bid engine -->
+<rect class="box" x="10" y="84" width="380" height="56" rx="4"/>
+<text class="lbl" x="200" y="106" font-size="16" text-anchor="middle">Bid engine</text>
+<text class="sub" x="200" y="125" font-size="11" text-anchor="middle">~40 per-client workbooks · recompute bids/budgets vs. target ACOS</text>
+
+<path class="flow" d="M200,140 L200,160"/>
+
+<!-- Autorun -->
+<rect class="box-dark" x="10" y="160" width="380" height="56" rx="4"/>
+<text class="lbl-light" x="200" y="182" font-size="16" text-anchor="middle">Autorun</text>
+<text class="sub-light" x="200" y="201" font-size="11" text-anchor="middle">PowerShell + Task Scheduler over COM · polls every 15 min</text>
+
+<path class="flow" d="M200,216 L200,236"/>
+
+<!-- Boundary marker -->
+<rect class="box-dashed" x="30" y="236" width="340" height="34" rx="4"/>
+<text class="note" x="200" y="257" font-size="11.5" text-anchor="middle">autorun stops here — import only, never the outbound upload</text>
+
+<path class="flow" d="M200,270 L200,290"/>
+
+<!-- Human review -->
+<rect class="box" x="10" y="290" width="380" height="46" rx="4"/>
+<text class="lbl" x="200" y="319" font-size="15" text-anchor="middle">Human review</text>
+
+<path class="flow" d="M200,336 L200,356"/>
+
+<!-- Bulk export -->
+<rect class="box-dark" x="10" y="356" width="380" height="40" rx="4"/>
+<text class="lbl-light" x="200" y="380" font-size="14" text-anchor="middle">Upload-ready bulk export</text>
+</svg>
