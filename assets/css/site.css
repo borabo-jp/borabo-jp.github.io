@@ -227,6 +227,13 @@ a:hover { color: var(--accent-ink); }
   border-bottom: 1px solid var(--line);
   background: var(--paper-tint);
 }
+/* SVG architecture-diagram thumbnails (index.html work grid): contain rather than
+   cover, so a squarish diagram doesn't get its top/bottom labels cropped off inside
+   the 16:10 card frame. */
+.work-card img[src$=".svg"] {
+  object-fit: contain;
+  padding: var(--sp-3);
+}
 .work-card__body { padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); flex: 1; }
 .work-card__title { font: 680 var(--fs-h3)/1.25 var(--sans); letter-spacing: -0.012em; margin: 0; }
 .work-card__meta { font: 500 var(--fs-xs)/1.4 var(--mono); color: var(--ink-faint); margin: 0; }
