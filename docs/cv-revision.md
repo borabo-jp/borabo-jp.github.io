@@ -7,19 +7,18 @@ copy-paste ready. It does not produce a PDF — export and place the result at
 `assets/Borabo-CV.pdf` once the edits are made, replacing the current placeholder copy of the old
 CV that's sitting there so the portfolio site's download link isn't dead.
 
-## Two things only the owner can fill in
+## One thing still outstanding
 
-- `<AMS_START_DATE>` — the AMS Management start month. Known: the year is 2026 (per earlier
-  conversation). The month is not recorded anywhere in this repo and must not be guessed — a wrong
-  employment date is the kind of error a client fact-checks. Also decide the Intelegencia end date
-  to match (see the note under that entry below — the two roles do not overlap, per your earlier
-  decision that AMS superseded Intelegencia).
 - `<PORTFOLIO_URL>` — will be `https://borabo-jp.github.io` once the site deploys (still
   owner-blocked on `gh auth login` and the Upwork/OnlineJobs.ph URLs). Leave the header token in
   place until then, or drop that segment of the header entirely until the site is live — a CV
   linking to a 404 is worse than a CV with no link.
 
-Everything else below is ready to use as-is.
+The AMS start date is now confirmed (Feb 2026 — owner-supplied 2026-09-03) and filled in below,
+with the Intelegencia entry's end date set to the month immediately before it (Jan 2026), per the
+earlier decision that AMS superseded Intelegencia rather than running alongside it.
+
+Everything below is ready to use as-is.
 
 ---
 
@@ -60,7 +59,7 @@ one-off reports.
 supersedes the Intelegencia role rather than running alongside it, so only AMS is marked "Present."
 
 ```
-Automation & Data Systems Specialist | AMS Management          <AMS_START_DATE> – Present
+Automation & Data Systems Specialist | AMS Management          Feb 2026 – Present
 
 • Built and maintain three internal Windows desktop applications (Electron, TypeScript, React)
   covering Amazon Sponsored Products campaign generation, search-term cannibalisation auditing,
@@ -75,11 +74,10 @@ Automation & Data Systems Specialist | AMS Management          <AMS_START_DATE> 
   tooling stack runs on, plus the agency's public-facing website.
 ```
 
-**Intelegencia entry — add an end date.** Set it to the month immediately before your AMS start
-date once you know it (e.g. if AMS starts January 2026, end this at December 2025):
+**Intelegencia entry — end date filled in** (Jan 2026, the month before the Feb 2026 AMS start):
 
 ```
-Brand/Data Support Specialist | Intelegencia          Mar 2025 – <INTELEGENCIA_END_DATE>
+Brand/Data Support Specialist | Intelegencia          Mar 2025 – Jan 2026
 
 • Automated reports via Google Apps Script and macros; managed data extraction from Amazon
   Seller/Vendor Central for dashboards.
@@ -182,3 +180,6 @@ documentation and SOPs for non-technical operators.
 3. Key Skills reorganized to lead with the Amazon Ads tooling stack, keeping the full BI/reporting
    skillset underneath so smaller, more general jobs still read as covered.
 4. Portrait/photo, Alorica, Ubiquity, TechMahindra, and Education entries are untouched.
+5. AMS start date confirmed as Feb 2026; Intelegencia now shows a real end date (Jan 2026) instead
+   of "Present," resolving the two-current-roles inconsistency the earlier patch-note version had
+   flagged but left open.
