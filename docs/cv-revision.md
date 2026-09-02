@@ -1,115 +1,184 @@
-# CV revision — replacement text
+# CV rewrite — full replacement text
 
-Copy-paste ready text for the owner to drop into the existing CV document, replacing the sections
-named below. This does not produce a PDF — export and place `assets/Borabo-CV.pdf` yourself once
-the edits are made.
+**Supersedes the earlier incremental-patch version of this file.** That version predated the
+2026-09-02 project survey and positioning revision, and still sold the old generalist "automation
+and data systems specialist" framing without the Amazon Ads tooling story. This is a full rewrite,
+copy-paste ready. It does not produce a PDF — export and place the result at
+`assets/Borabo-CV.pdf` once the edits are made, replacing the current placeholder copy of the old
+CV that's sitting there so the portfolio site's download link isn't dead.
 
-## Fill these in before using
+## Two things only the owner can fill in
 
-- `<AMS_START_DATE>` — the AMS Management start date. Not guessed; get it from the owner's own
-  records before using the AMS entry below.
-- `<PORTFOLIO_URL>` — will be `https://borabo-jp.github.io` once the site deploys. It is **not
-  live yet**. Add it to the header once the site is up; until then, leave the header as it is or
-  add the token as a placeholder you'll remember to fill in.
+- `<AMS_START_DATE>` — the AMS Management start month. Known: the year is 2026 (per earlier
+  conversation). The month is not recorded anywhere in this repo and must not be guessed — a wrong
+  employment date is the kind of error a client fact-checks. Also decide the Intelegencia end date
+  to match (see the note under that entry below — the two roles do not overlap, per your earlier
+  decision that AMS superseded Intelegencia).
+- `<PORTFOLIO_URL>` — will be `https://borabo-jp.github.io` once the site deploys (still
+  owner-blocked on `gh auth login` and the Upwork/OnlineJobs.ph URLs). Leave the header token in
+  place until then, or drop that segment of the header entirely until the site is live — a CV
+  linking to a 404 is worse than a CV with no link.
 
-## Question for the owner — resolve before finalizing (see "Overlapping current roles" below)
-
-The CV currently lists the Intelegencia role as ongoing ("Present"). The new AMS entry is also
-current. Two roles both marked "Present" reads as an error to a client. Pick one of the two fixes
-in that section and apply it before exporting.
-
----
-
-## 1. Header change
-
-Add the portfolio link next to the email, so it's visible without scrolling:
-
-```
-jaypeeborabo81@gmail.com | 09666973287 | Cupang, Antipolo City | <PORTFOLIO_URL>
-```
+Everything else below is ready to use as-is.
 
 ---
 
-## 2. Title under name
-
-Replace:
+## Header
 
 ```
-Data and Reporting Analyst
+JOHN PATRICK BORABO
+Amazon Ads Automation & Data Systems Specialist
+jaypeeborabo81@gmail.com | 09666973287 | Antipolo City, Philippines | <PORTFOLIO_URL>
 ```
 
-With:
-
-```
-Automation & Data Systems Specialist
-```
+Note: shortened "Cupang, Antipolo City" to "Antipolo City" in the header — city-level location is
+enough for a CV header and this document is headed for a public portfolio site; the phone number
+stays since that's a standard, expected CV field. Worth deciding for yourself whether you're
+comfortable with the phone number specifically being in a public git repository's history once the
+site deploys — that's the same tradeoff as any public CV upload, but a repo is indexed and archived
+differently than a PDF you email directly to a client. If you'd rather not, drop the phone number
+from this document and keep it only in the version you send directly to clients.
 
 ---
 
-## 3. Summary line
-
-Replace:
+## Summary
 
 ```
-Experienced Reporting and Data Analyst with over 8 years in the BPO industry, specializing in
-process automation and data analysis. With a focus on streamlining reporting and delivering
-actionable insights. Passionate about optimizing workflows and improving performance through
-data-driven solutions.
-```
-
-With:
-
-```
-Automation and data systems builder with 8+ years in data and reporting, now running data and
-automation single-handed for a management agency — building the warehouse, the pipelines, the
-dashboards, and the internal tools a business runs on, not just the reports that summarize it.
+Automation and data-systems engineer with 8+ years in data and reporting. I currently build and
+operate the internal tooling stack for an Amazon advertising agency — three production desktop
+applications with over 750 automated tests between them, a scheduled bid-optimisation system
+running across a 38-account client fleet, and a cloud-based catalog alerting service — on top of
+the BigQuery warehouse and reporting layer underneath. I ship systems that keep running, not
+one-off reports.
 ```
 
 ---
 
-## 4. New lead entry — insert above the Intelegencia entry
+## Work experience
+
+**New lead entry — replaces the current top entry.** Per your earlier decision, AMS Management
+supersedes the Intelegencia role rather than running alongside it, so only AMS is marked "Present."
 
 ```
-Automation and Data Systems Specialist | AMS Management        <AMS_START_DATE> – Present
-• Built and own the company's data stack end to end: BigQuery warehouse,
-  automated pipelines, Looker Studio reporting, and internal tools.
-• Delivered multi-location inventory forecasting and factory purchase-order
-  planning in Google Sheets over BigQuery, reconciling stock across six-plus
-  locations against a shared snapshot date.
-• Developed VBA Excel templates and a standalone desktop application for
-  workflows outside spreadsheet reach.
-• Built the agency's website.
+Automation & Data Systems Specialist | AMS Management          <AMS_START_DATE> – Present
+
+• Built and maintain three internal Windows desktop applications (Electron, TypeScript, React)
+  covering Amazon Sponsored Products campaign generation, search-term cannibalisation auditing,
+  and weekly campaign pausing — over 750 automated tests across the three, sharing one common
+  device-based access-control system.
+• Automated the agency's weekly Amazon Ads bid-optimisation cycle — VBA and PowerShell-driven
+  scheduling across a 38-workbook client fleet, with staged rollout, timestamped backups, and
+  zero failures logged across the automated fleet.
+• Built a Cloud Run and BigQuery service that diffs daily catalog and inventory state against a
+  rolling history and emails a grouped change digest, piloted on a live seller account.
+• Own the BigQuery warehouse and Looker Studio / Google Sheets reporting layer the rest of the
+  tooling stack runs on, plus the agency's public-facing website.
 ```
 
-Note: "multi-location" is used instead of "multi-warehouse" because the reconciled locations
-include in-house storage, third-party warehouses, overseas factory stock, in-transit shipments,
-and marketplace fulfilment centres — not warehouses alone. This keeps the claim accurate without
-naming any partner or brand.
+**Intelegencia entry — add an end date.** Set it to the month immediately before your AMS start
+date once you know it (e.g. if AMS starts January 2026, end this at December 2025):
+
+```
+Brand/Data Support Specialist | Intelegencia          Mar 2025 – <INTELEGENCIA_END_DATE>
+
+• Automated reports via Google Apps Script and macros; managed data extraction from Amazon
+  Seller/Vendor Central for dashboards.
+• Researched product trends and maintained data integrity in spreadsheets to support brand
+  strategy presentations.
+```
+
+**Everything below this point is unchanged from the current CV** — Alorica, the three Ubiquity
+roles, the three TechMahindra roles, and Education. Kept as-is because they're already accurate and
+this rewrite only needed to touch the framing, the lead entry, and the skills section:
+
+```
+Reporting Analyst | Alorica                                    Apr 2024 – Feb 2025
+• Built VBA Macros and MS Access solutions to replace legacy Excel sheets, enhancing reporting
+  efficiency.
+• Delivered customized Power BI operational reports based on stakeholder requirements and metric
+  analysis.
+
+MIS Reporting Analyst | Ubiquity                                Jul 2023 – Apr 2024
+• Automated reporting workflows and replaced manual Excel processes by developing custom VBA
+  Macros and MS Access databases.
+• Generated and analyzed daily operational metric reports using Power BI, collaborating with
+  stakeholders to define requirements and deliver customized solutions.
+
+Business Insights Analyst | Ubiquity                            Jun 2022 – Feb 2023
+• Translated analytical findings into actionable business insights and data visualizations for
+  client presentations.
+• Ensured report accuracy and drove process improvements while communicating recommendations
+  directly to stakeholders.
+
+Operational Risk Analyst | Ubiquity                             Jan 2022 – Jun 2022
+• Investigated and resolved payment claims, specifically handling Regulations E & Z disputes and
+  VISA/STAR chargebacks.
+• Validated disputes with merchants and utilized available resources to make decisions on case
+  approvals or denials within required timeframes.
+
+MIS Reporting Analyst | TechMahindra                            Apr 2019 – Oct 2021
+• Developed automated reports using Excel Macros and maintained dashboards to track call center
+  performance.
+• Managed real-time inbound call traffic across multiple locations and conducted ad-hoc analysis
+  to enable business decisions.
+
+Escalation Specialist | TechMahindra                            Oct 2018 – Apr 2019
+• Investigated and resolved complex customer complaints while documenting guidelines for process
+  improvement.
+• Trained new agents on call handling efficiency and provided support during high-volume periods.
+
+Customer Service Associate | TechMahindra                       Mar 2017 – Oct 2018
+• Resolved technical and account-related inquiries for Globe Telecom services, ensuring accurate
+  documentation of all interactions.
+```
 
 ---
 
-## Overlapping current roles — resolve before exporting
+## Education
 
-The existing CV lists **Brand/Data Support Specialist | Intelegencia** as running through
-"Present." The new AMS entry above is also current. Two roles both marked "Present" on the same
-CV reads as an inconsistency to a client reviewing it, so this needs a decision from the owner —
-pick one of these two, don't leave both as "Present" by default:
+Unchanged — still correctly shows the degree as not completed. Do not edit this to imply
+otherwise:
 
-1. **AMS superseded Intelegencia.** If the AMS role replaced the Intelegencia work (even if there
-   was a short handover), give the Intelegencia entry a real end date and leave only AMS marked
-   "Present."
-2. **The two roles genuinely overlap** (e.g. Intelegencia continues part-time or on a reduced
-   basis alongside AMS). If so, keep both current but label them to make the overlap explicit —
-   for example, mark the Intelegencia line "Present, part-time" or add a short note explaining
-   the overlap, so a reader doesn't read it as a mistake.
-
-Which is actually true only the owner knows. Do not export the CV with both roles silently
-showing "Present" without picking one of the above.
+```
+Bachelor of Science in Information Technology                   Jun 2013 – Oct 2016
+IETI Marikina
+4th Year College Undergraduate
+```
 
 ---
 
-## What was not changed
+## Key skills
 
-The Intelegencia, Alorica, Ubiquity, TechMahindra entries, and the education line, are left as
-they are in the existing CV. The education line already correctly shows the degree as
-uncompleted (4th year undergraduate); nothing here should be edited to imply a completed degree.
+**Replaces the current Key Skills block.** Reorganized to lead with what's now the strongest,
+most differentiated evidence — the shipped Amazon Ads tooling suite — while keeping the broader
+BI/reporting skillset that still covers everything else:
+
+```
+Amazon Ads Tooling: Campaign generation & bulk file automation, bid optimisation automation,
+search-term cannibalisation auditing, campaign pause automation, catalog change alerting.
+
+Application Development: Electron, TypeScript, React, Python, automated testing (750+ tests
+shipped across three production desktop apps).
+
+Data Automation: VBA Macros, Google Apps Script, PowerShell, SQL, MS Access, Power Query.
+
+Data Warehousing & Cloud: BigQuery, Google Cloud Run, Cloud Scheduler.
+
+Reporting & BI: Excel, Google Sheets, Power BI, Looker Studio.
+
+Process & Reliability: Staged rollouts, access-control design, idempotent scheduled automation,
+documentation and SOPs for non-technical operators.
+```
+
+---
+
+## What changed from the previous CV, at a glance
+
+1. Title and summary rewritten around the Amazon Ads tooling specialism — the strongest,
+   most differentiated evidence now that five case studies are shipped and reviewed.
+2. AMS Management added as the current role, replacing (not overlapping) Intelegencia, with
+   bullets grounded in the five actually-shipped, tested projects — no inventory-forecasting
+   claim, since that case study was dropped rather than built (no Google Sheet demo exists).
+3. Key Skills reorganized to lead with the Amazon Ads tooling stack, keeping the full BI/reporting
+   skillset underneath so smaller, more general jobs still read as covered.
+4. Portrait/photo, Alorica, Ubiquity, TechMahindra, and Education entries are untouched.

@@ -37,13 +37,12 @@ no backend, no dependencies.
 ```
 C:\Portfolio\
   index.html                            landing page
-  work/
-    inventory-forecasting.html
-    bigquery-warehouse.html
-    looker-dashboards.html
-    excel-vba-templates.html
-    desktop-app.html
-    bpo-reporting-automation.html
+  work/                                    (final lineup, per the 2026-09-02 and 2026-09-03 revisions below)
+    campaign-launcher.html                flagship
+    bid-optimisation-autorun.html
+    search-term-audit.html
+    campaign-pausing-tool.html
+    catalog-alerting.html
   assets/
     css/site.css                        single stylesheet, design tokens at top
     js/site.js                          mobile nav toggle + scroll reveal, nothing else
@@ -73,7 +72,7 @@ adds the mobile nav toggle and scroll-reveal only; the nav must be usable withou
 |---|---------|----------|
 | 1 | Hero | Name, title, one-line value proposition, buttons (View Work / Hire on Upwork), location and timezone |
 | 2 | Proof strip | 3–4 defensible numbers: years of experience, hours per month automated, tool count |
-| 3 | Selected work | Six case study cards, thumbnail plus outcome-framed title. The load-bearing section. |
+| 3 | Selected work | Five case study cards (see 2026-09-03 revision, section 5), thumbnail plus outcome-framed title. The load-bearing section. |
 | 4 | Services | Pipeline & report automation; BigQuery / warehouse setup; Looker Studio & Power BI dashboards; Excel/VBA & Google Sheets tooling; data cleanup & migration; internal desktop tools |
 | 5 | Stack | Grouped labels: BigQuery, SQL, Looker Studio, Power BI, Apps Script, VBA, MS Access, Power Query |
 | 6 | About | Three sentences: BPO reporting analyst to one-man data department, with a small square portrait beside the copy (approved 2026-08-03 — freelance clients are hiring a person, so a face earns trust; deliberately not a hero image) |
@@ -108,7 +107,15 @@ initial conversation implied. Full technical detail: `docs/case-study-source-mat
 | `search-term-audit.html` | Cannibalisation detection. Carries the best pure-engineering story: a central-directory zip reader written to defeat a silent infinite hang in standard xlsx readers. |
 | `campaign-pausing-tool.html` | Weekly pausing pass across ~38 accounts. Non-mutating by design; 11 adversarial tests on the access-control logic. |
 | `catalog-alerting.html` | Cloud Run + BigQuery diff-and-notify service. Establishes range beyond Excel and the desktop. Honestly scoped as a single-account pilot. |
-| `inventory-forecasting.html` | Multi-location inventory and supply planning in Sheets over BigQuery. Establishes range beyond advertising. |
+
+**REVISION 2026-09-03 — `inventory-forecasting.html` DESCOPED.** It required a Google Sheet built
+and screenshotted in the owner's personal account, which the owner decided not to pursue. The
+lineup is final at **five** case studies, not six. The Excel/Google Sheets/VBA/Apps Script
+expertise that page would have demonstrated is instead folded into the landing page's Services
+section rather than getting a dedicated page — the other five case studies already carry ample
+VBA/Apps Script evidence (Campaign Launcher's legacy VBA port, the bid-optimisation-autorun VBA
+fleet, campaign-pausing-tool's VBA/PowerShell automation), so a sixth page repeating that signal
+was lower-value than expected when this table was first drawn up.
 
 **Deliberately excluded, with reasons:**
 
@@ -155,7 +162,7 @@ therefore draws on scale and test counts, which can be verified, and not on time
 which cannot. No "hours saved" figure appears anywhere on the site unless the owner supplies one he
 can defend in a client call.
 
-### Flagship detail: inventory forecasting
+### Flagship detail: inventory forecasting (HISTORICAL — descoped 2026-09-03, kept for record only)
 
 Structure observed in the source file on 2026-08-03. This is not a spreadsheet; it is multi-echelon
 inventory and supply planning implemented in Google Sheets over BigQuery.

@@ -38,7 +38,7 @@
 | `work/search-term-audit.html` | Case study — cannibalisation detection; the zip-reader engineering story |
 | `work/campaign-pausing-tool.html` | Case study — weekly pausing pass, non-mutating by design |
 | `work/catalog-alerting.html` | Case study — Cloud Run + BigQuery diff-and-notify service |
-| `work/inventory-forecasting.html` | Case study — multi-location inventory and supply planning |
+| ~~`work/inventory-forecasting.html`~~ | DESCOPED 2026-09-03 — dropped, not built. See the revision note before Task 3. |
 | `assets/css/site.css` | All styling: tokens, base, layout primitives, every component |
 | `assets/js/site.js` | Scroll-reveal only. Nothing else. |
 | `assets/img/` | Images from synthetic rebuilds, compressed, EXIF-stripped, plus `portrait.jpg` for the About section |
@@ -779,7 +779,22 @@ body of work than this plan was written against. Consequences for the tasks belo
 
 ---
 
-## Task 3: Inventory forecasting — synthetic rebuild (DEFERRED, still owner-blocked)
+## REVISION 2026-09-03 — Task 3 / inventory-forecasting.html DESCOPED, not deferred
+
+The owner decided to drop the sixth case study rather than continue waiting on the Google Sheet
+build it depended on. **The site's final lineup is five case studies**, not six:
+`campaign-launcher.html` (flagship), `bid-optimisation-autorun.html`, `search-term-audit.html`,
+`campaign-pausing-tool.html`, `catalog-alerting.html`. Task 3 below and Task 4's original framing
+as "the first of six" are superseded — do not build `work/inventory-forecasting.html`, do not
+reserve a sixth work-grid card for it, and do not treat any later reference to "six case studies"
+in this document as current. The Excel/Google Sheets/VBA/Apps Script expertise that page would
+have demonstrated is instead folded into the landing page's Services section (see `index.html`,
+"Excel & Google Sheets tooling" entry) — no dedicated page, since the other five case studies
+already carry ample VBA/Apps Script evidence.
+
+---
+
+## Task 3 (DESCOPED — kept below for historical record only): Inventory forecasting — synthetic rebuild
 
 **Files:**
 - Create: a new Google Sheet, owned by the owner's personal Google account, titled `Omni Inventory Forecasting — Portfolio Demo`

@@ -1,6 +1,6 @@
-# jpborabo.github.io
+# borabo-jp.github.io
 
-Portfolio site for John Patrick Borabo — Automation & Data Systems Specialist.
+Portfolio site for John Patrick Borabo — Amazon Ads Automation & Data Systems Specialist.
 
 Hand-written HTML and CSS. No framework, no build step, no dependencies, no
 JavaScript beyond a scroll-reveal observer. Deployed via GitHub Pages.
@@ -23,6 +23,7 @@ Then open http://localhost:8000.
 
 ## A note on the case studies
 
-Every figure, product name, and screenshot on this site comes from a synthetic
-rebuild. No client data, client name, or vendor name appears anywhere in this
-repository.
+Every case study describes the owner's own shipped tooling, scrubbed of client and vendor
+identifiers before publication. Figures are real, sourced from test suites, commit history, and
+run logs — never estimated. Diagrams are hand-authored SVGs, not screenshots of client data. No
+client data, client name, or vendor name appears anywhere in this repository.
