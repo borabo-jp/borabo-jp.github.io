@@ -1,24 +1,25 @@
 # CV rewrite — full replacement text
 
-**Supersedes the earlier incremental-patch version of this file.** That version predated the
-2026-09-02 project survey and positioning revision, and still sold the old generalist "automation
-and data systems specialist" framing without the Amazon Ads tooling story. This is a full rewrite,
-copy-paste ready. It does not produce a PDF — export and place the result at
-`assets/Borabo-CV.pdf` once the edits are made, replacing the current placeholder copy of the old
-CV that's sitting there so the portfolio site's download link isn't dead.
+**This has been generated as an actual PDF, not just copy-paste text.** `docs/cv.html` is the
+laid-out source (matches your original template's two-column label/content style — name, title,
+contact line, then SUMMARY / WORK EXPERIENCE / EDUCATION / KEY SKILLS as left-margin labels) and
+`assets/Borabo-CV.pdf` is the rendered output, replacing the old placeholder copy. The prose below
+is kept as the readable, reviewable record of exactly what's in it — edit here first if you want to
+change wording, then regenerate the PDF from `docs/cv.html` (instructions in a comment at the top
+of that file) or just ask for it to be regenerated.
 
 ## One thing still outstanding
 
-- `<PORTFOLIO_URL>` — will be `https://borabo-jp.github.io` once the site deploys (still
-  owner-blocked on `gh auth login` and the Upwork/OnlineJobs.ph URLs). Leave the header token in
-  place until then, or drop that segment of the header entirely until the site is live — a CV
-  linking to a 404 is worse than a CV with no link.
+- The portfolio URL is deliberately left out of the generated PDF's contact line — the site isn't
+  deployed yet (still owner-blocked on `gh auth login` and the Upwork/OnlineJobs.ph URLs), and a
+  CV linking to a 404 is worse than a CV with no link. Add `borabo-jp.github.io` to the contact
+  line in `docs/cv.html` and regenerate once Task 12 ships.
 
-The AMS start date is now confirmed (Feb 2026 — owner-supplied 2026-09-03) and filled in below,
-with the Intelegencia entry's end date set to the month immediately before it (Jan 2026), per the
+The AMS start date is confirmed (Feb 2026 — owner-supplied 2026-09-03) and reflected below, with
+the Intelegencia entry's end date set to the month immediately before it (Jan 2026), per the
 earlier decision that AMS superseded Intelegencia rather than running alongside it.
 
-Everything below is ready to use as-is.
+Everything below matches what's in the generated PDF.
 
 ---
 

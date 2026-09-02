@@ -1,0 +1,210 @@
+<!--
+  Source for assets/Borabo-CV.pdf. Content matches docs/cv-revision.md.
+  Regenerate after editing with headless Chrome's print-to-pdf:
+
+    & "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless --disable-gpu `
+      --no-pdf-header-footer --print-to-pdf="assets\Borabo-CV.pdf" "file:///$(Resolve-Path docs\cv.html)"
+
+  Update the contact line to add the portfolio URL once the site deploys (Task 12).
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>John Patrick Borabo — CV</title>
+<style>
+  @page { size: Letter; margin: 0; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    background: #fbfaf8;
+    color: #14181c;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+  .page { padding: 0.55in 0.6in; }
+  header.head { margin-bottom: 0.28in; }
+  h1 {
+    margin: 0 0 2pt 0;
+    font-size: 24pt;
+    letter-spacing: 0.5pt;
+    font-weight: 800;
+  }
+  .title {
+    margin: 0 0 6pt 0;
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: #0f5c5a;
+  }
+  .contact {
+    font-size: 9.5pt;
+    color: #4a545e;
+  }
+  .contact a { color: #4a545e; text-decoration: none; }
+
+  table.layout { width: 100%; border-collapse: collapse; }
+  table.layout td { vertical-align: top; padding: 0; }
+  td.label {
+    width: 1.35in;
+    padding-right: 0.28in;
+    border-right: 1.5pt solid #d8dde1;
+    font-size: 9pt;
+    font-weight: 800;
+    letter-spacing: 0.5pt;
+    text-transform: uppercase;
+    color: #14181c;
+    padding-top: 2pt;
+  }
+  td.content { padding-left: 0.28in; padding-bottom: 14pt; }
+
+  .row { margin-bottom: 13pt; }
+  .row:last-child { margin-bottom: 0; }
+
+  .jobline { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3pt; }
+  .job-title { font-weight: 700; font-size: 10.5pt; }
+  .job-date { font-size: 9.3pt; color: #4a545e; white-space: nowrap; padding-left: 8pt; }
+
+  ul.bullets { margin: 0; padding-left: 14pt; }
+  ul.bullets li { margin-bottom: 2pt; }
+
+  .summary p { margin: 0; }
+
+  .skills-group { margin-bottom: 7pt; }
+  .skills-group:last-child { margin-bottom: 0; }
+  .skills-group b { font-weight: 700; }
+
+  .edu-degree { font-weight: 700; }
+  .edu-school { color: #4a545e; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="head">
+  <h1>JOHN PATRICK BORABO</h1>
+  <p class="title">Amazon Ads Automation &amp; Data Systems Specialist</p>
+  <p class="contact">jaypeeborabo81@gmail.com&nbsp; |&nbsp; 09666973287&nbsp; |&nbsp; Antipolo City, Philippines</p>
+</header>
+
+<table class="layout">
+<tr>
+  <td class="label">Summary</td>
+  <td class="content">
+    <div class="row summary">
+      <p>Automation and data-systems engineer with 8+ years in data and reporting. I currently
+      build and operate the internal tooling stack for an Amazon advertising agency — three
+      production desktop applications with over 750 automated tests between them, a scheduled
+      bid-optimisation system running across a 38-account client fleet, and a cloud-based catalog
+      alerting service — on top of the BigQuery warehouse and reporting layer underneath. I ship
+      systems that keep running, not one-off reports.</p>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="label">Work<br>Experience</td>
+  <td class="content">
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">Automation &amp; Data Systems Specialist | AMS Management</span><span class="job-date">Feb 2026 – Present</span></div>
+      <ul class="bullets">
+        <li>Built and maintain three internal Windows desktop applications (Electron, TypeScript, React) covering Amazon Sponsored Products campaign generation, search-term cannibalisation auditing, and weekly campaign pausing — over 750 automated tests across the three, sharing one common device-based access-control system.</li>
+        <li>Automated the agency's weekly Amazon Ads bid-optimisation cycle — VBA and PowerShell-driven scheduling across a 38-workbook client fleet, with staged rollout, timestamped backups, and zero failures logged across the automated fleet.</li>
+        <li>Built a Cloud Run and BigQuery service that diffs daily catalog and inventory state against a rolling history and emails a grouped change digest, piloted on a live seller account.</li>
+        <li>Own the BigQuery warehouse and Looker Studio / Google Sheets reporting layer the rest of the tooling stack runs on, plus the agency's public-facing website.</li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">Brand/Data Support Specialist | Intelegencia</span><span class="job-date">Mar 2025 – Jan 2026</span></div>
+      <ul class="bullets">
+        <li>Automated reports via Google Apps Script and macros; managed data extraction from Amazon Seller/Vendor Central for dashboards.</li>
+        <li>Researched product trends and maintained data integrity in spreadsheets to support brand strategy presentations.</li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">Reporting Analyst | Alorica</span><span class="job-date">Apr 2024 – Feb 2025</span></div>
+      <ul class="bullets">
+        <li>Built VBA Macros and MS Access solutions to replace legacy Excel sheets, enhancing reporting efficiency.</li>
+        <li>Delivered customized Power BI operational reports based on stakeholder requirements and metric analysis.</li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">MIS Reporting Analyst | Ubiquity</span><span class="job-date">Jul 2023 – Apr 2024</span></div>
+      <ul class="bullets">
+        <li>Automated reporting workflows and replaced manual Excel processes by developing custom VBA Macros and MS Access databases.</li>
+        <li>Generated and analyzed daily operational metric reports using Power BI, collaborating with stakeholders to define requirements and deliver customized solutions.</li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">Business Insights Analyst | Ubiquity</span><span class="job-date">Jun 2022 – Feb 2023</span></div>
+      <ul class="bullets">
+        <li>Translated analytical findings into actionable business insights and data visualizations for client presentations.</li>
+        <li>Ensured report accuracy and drove process improvements while communicating recommendations directly to stakeholders.</li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">Operational Risk Analyst | Ubiquity</span><span class="job-date">Jan 2022 – Jun 2022</span></div>
+      <ul class="bullets">
+        <li>Investigated and resolved payment claims, specifically handling Regulations E &amp; Z disputes and VISA/STAR chargebacks.</li>
+        <li>Validated disputes with merchants and utilized available resources to make decisions on case approvals or denials within required timeframes.</li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">MIS Reporting Analyst | TechMahindra</span><span class="job-date">Apr 2019 – Oct 2021</span></div>
+      <ul class="bullets">
+        <li>Developed automated reports using Excel Macros and maintained dashboards to track call center performance.</li>
+        <li>Managed real-time inbound call traffic across multiple locations and conducted ad-hoc analysis to enable business decisions.</li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">Escalation Specialist | TechMahindra</span><span class="job-date">Oct 2018 – Apr 2019</span></div>
+      <ul class="bullets">
+        <li>Investigated and resolved complex customer complaints while documenting guidelines for process improvement.</li>
+        <li>Trained new agents on call handling efficiency and provided support during high-volume periods.</li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="jobline"><span class="job-title">Customer Service Associate | TechMahindra</span><span class="job-date">Mar 2017 – Oct 2018</span></div>
+      <ul class="bullets">
+        <li>Resolved technical and account-related inquiries for Globe Telecom services, ensuring accurate documentation of all interactions.</li>
+      </ul>
+    </div>
+
+  </td>
+</tr>
+<tr>
+  <td class="label">Education</td>
+  <td class="content">
+    <div class="row">
+      <div class="jobline"><span class="job-title edu-degree">Bachelor of Science in Information Technology</span><span class="job-date">Jun 2013 – Oct 2016</span></div>
+      <p class="edu-school" style="margin:0 0 2pt 0;">IETI Marikina</p>
+      <p style="margin:0;">4th Year College Undergraduate</p>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="label">Key Skills</td>
+  <td class="content">
+    <div class="row">
+      <div class="skills-group"><b>Amazon Ads Tooling:</b> Campaign generation &amp; bulk file automation, bid optimisation automation, search-term cannibalisation auditing, campaign pause automation, catalog change alerting.</div>
+      <div class="skills-group"><b>Application Development:</b> Electron, TypeScript, React, Python, automated testing (750+ tests shipped across three production desktop apps).</div>
+      <div class="skills-group"><b>Data Automation:</b> VBA Macros, Google Apps Script, PowerShell, SQL, MS Access, Power Query.</div>
+      <div class="skills-group"><b>Data Warehousing &amp; Cloud:</b> BigQuery, Google Cloud Run, Cloud Scheduler.</div>
+      <div class="skills-group"><b>Reporting &amp; BI:</b> Excel, Google Sheets, Power BI, Looker Studio.</div>
+      <div class="skills-group"><b>Process &amp; Reliability:</b> Staged rollouts, access-control design, idempotent scheduled automation, documentation and SOPs for non-technical operators.</div>
+    </div>
+  </td>
+</tr>
+</table>
+
+</div>
+</body>
+</html>
