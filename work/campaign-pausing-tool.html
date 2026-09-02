@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaign Pausing Tool — John Patrick Borabo</title>
+<meta name="description" content="A desktop app that automates the weekly Sponsored Products pausing pass across a client fleet, applying two precise rule sets and writing upload-ready files without ever mutating the source workbook it reads from.">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-header__name" href="../index.html">John Patrick Borabo</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html#work" aria-current="page">Work</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#stack">Stack</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="section">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">Amazon Ads · Desktop App</p>
+    <h1 class="h1">Automating a weekly pause pass across 38 client accounts without ever touching the source file</h1>
+    <p class="lede">A Windows desktop app that automates the weekly Sponsored Products pausing pass
+      across the client fleet — applying two precise rule sets to every account's prep workbook and
+      writing upload-ready pause files, without ever mutating the source file it reads from.</p>
+    <ul class="tags">
+      <li class="tag">Electron</li>
+      <li class="tag">React</li>
+      <li class="tag">TypeScript</li>
+      <li class="tag">ExcelJS</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap--narrow">
+    <ul class="proof">
+      <li>
+        <span class="proof__num">90</span>
+        <span class="proof__label">automated test cases</span>
+      </li>
+      <li>
+        <span class="proof__num">38</span>
+        <span class="proof__label">client accounts processed weekly</span>
+      </li>
+      <li>
+        <span class="proof__num">46</span>
+        <span class="proof__label">columns preserved on export</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap--narrow prose">
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Context</h2>
+      <p>Every week, a media-buying operation running Amazon Sponsored Products needs to sweep its
+        entire client fleet and pause the keyword, product, and bid-adjustment rows that a review
+        pass has flagged. That pass touches roughly 38 active accounts, each with its own prep
+        workbook on a shared drive, refreshed weekly by whoever reviewed that account. The pausing
+        itself is mechanical — apply a rule, mark the row, export it in upload-ready form — but at
+        fleet scale, mechanical is exactly where manual process breaks down: a wrong file picked up,
+        a rule applied inconsistently between accounts, or worse, the working prep file itself
+        getting overwritten by the very tool meant to read from it.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">The problem</h2>
+      <p>Each account's prep workbook carries two tabs that matter here. On the clean-up tab, every
+        row with a non-blank state should be paused — except rows with a blank state have to stay
+        excluded, because Amazon's bulk uploader rejects a state value on bid-adjustment rows
+        outright. On the manual-review tab, only rows whose entity is exactly keyword or product
+        targeting, and whose sales are zero (a blank sales cell counts as zero), should be paused.
+        Finding the right file to run either rule against is its own problem: account variants
+        multiply the file count, editors leave Excel lock stubs behind, and the tool's own prior
+        output sits in the same folder as the file it should pick up next. Getting any of this wrong
+        on a shared drive that other people are actively working from isn't a recoverable mistake —
+        it has to be right, or it has to fail loudly.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">What I built</h2>
+      <p>The app sweeps the shared drive for a chosen week, using regex-based filename discovery to
+        pick the newest file per account variant while rejecting Excel lock stubs and the tool's own
+        prior output as decoys. Rule 1 runs against the clean-up tab: every row with a non-blank
+        state becomes update/paused, with blank-state rows excluded because those are the
+        bid-adjustment rows Amazon's uploader would reject outright. Rule 2 runs against the
+        manual-review tab: rows whose entity is exactly keyword or product targeting, and whose
+        sales are zero — blank counting as zero — get the same treatment. Columns are resolved by
+        normalised header name rather than fixed spreadsheet letter, so a shifted column never
+        silently applies a rule to the wrong field, and all 46 original columns are preserved on
+        export even though only a few are ever modified.</p>
+      <figure class="figure">
+        <img src="../assets/img/campaign-pausing-tool-arch.svg" alt="Diagram: a shared-drive scan uses regex filename discovery to pick the newest file per account variant, rejecting Excel lock stubs and the tool's own prior output as decoys. That feeds two rule sets in parallel — Rule 1 on the clean-up tab, pausing every row with a non-blank state; Rule 2 on the manual-review tab, pausing keyword or product-targeting rows with zero sales. Both converge into an editable preview, then an upload-ready export as a separate file. A dashed rail running alongside the whole pipeline marks the source workbook as read-only and never mutated, from the initial scan through to export.">
+        <figcaption class="figure__cap">Pipeline: shared-drive scan (regex discovery, decoys
+          rejected) &rarr; Rule 1 (clean-up tab) + Rule 2 (manual-review tab) &rarr; editable preview
+          &rarr; upload-ready export. Source workbook stays read-only throughout.</figcaption>
+      </figure>
+      <p>Every result lands in an editable preview — a filtered, sorted, virtualised table over all
+        46 columns — before anything is written, and export always goes to a separate upload-ready
+        file. The source workbook is opened, read, and closed; it is never the file the app writes
+        to, in any code path. An IPC handler that opens a folder is path-validated to stay inside the
+        prep root, so a compromised renderer can't be tricked into opening an arbitrary path on the
+        machine. The Electron shell follows the same discipline throughout: context isolation on,
+        node integration off, sandbox on, with all filesystem and Excel work confined to the main
+        process and crossed to the UI only through a typed preload bridge.</p>
+      <p>The tool shares its device allow-list with the other two apps in this suite — the search
+        term auditor and Campaign Launcher — so all three enforce access control the same way; that
+        shared gate alone carries 11 adversarial tests covering clock skew, a spoofed cache hostname,
+        and the distinction between an empty allow-list and an unreadable one (the mechanism itself
+        is described in full on the Campaign Launcher page). Each app in the suite, this one
+        included, ships with a printable SOP and flowchart generated through an HTML-to-PDF
+        pipeline, written for the non-technical operators who run it week to week.</p>
+      <p>90 test cases across 9 files back the two rule sets: business-rule tests assert exact
+        row-level outcomes, confirm the input file is never mutated, and check that error messages
+        name the specific missing column. An integration test builds a fixture tree seeded with
+        decoys — a prior output file, a lock stub — and confirms the scanner ignores both while
+        round-tripping a real workbook through disk. A separate filter/sort suite covers
+        numeric-versus-text column inference, including keeping 15-digit campaign IDs as text so
+        float precision never quietly corrupts them.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Result</h2>
+      <ul class="result-list">
+        <li>The app never mutates the source file it reads from — every run opens, reads, and closes
+          the original workbook, and export always writes to a separate upload-ready file.</li>
+        <li>Two rule sets apply consistently across every account's prep workbook: non-blank-state
+          pausing on the clean-up tab, with the bid-adjustment exception respected, and zero-sales
+          keyword/product-targeting pausing on the manual-review tab.</li>
+        <li>Filename discovery picks the newest file per account variant off the shared drive and
+          ignores Excel lock stubs and the tool's own prior output, so a stale or half-written file
+          never gets processed by mistake.</li>
+        <li>Columns are resolved by header name, not position, and all 46 original columns are
+          preserved on export even though only a handful are ever touched.</li>
+        <li>Processes roughly 38 active client accounts weekly, with a full week's scan completing
+          in up to a minute.</li>
+        <li>90 test cases across 9 files back the rule logic, the non-mutation guarantee, and the
+          file-discovery decoys; the suite-shared access-control gate alone carries 11 adversarial
+          tests.</li>
+      </ul>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Stack</h2>
+      <ul class="tags">
+        <li class="tag">Electron 31.4</li>
+        <li class="tag">React 18.3</li>
+        <li class="tag">Zustand 4.5</li>
+        <li class="tag">TanStack Table 8.20</li>
+        <li class="tag">TanStack Virtual 3.14</li>
+        <li class="tag">ExcelJS 4.4</li>
+        <li class="tag">TypeScript 5.5</li>
+        <li class="tag">Vitest 2.0</li>
+      </ul>
+      <p class="figure__cap">All figures and examples on this page are drawn from the owner's
+        own repositories. No client information appears anywhere on this site.</p>
+    </section>
+
+    <p><a class="btn btn--ghost" href="../index.html#work">&larr; Back to work</a></p>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>John Patrick Borabo — Automation &amp; Data Systems Specialist. Antipolo City, Philippines (UTC+8).</p>
+    <p><a href="mailto:jaypee@amsmanagement.agency">jaypee@amsmanagement.agency</a></p>
+  </div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

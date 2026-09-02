@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 356" role="img" aria-label="Flow diagram. A shared-drive scan uses regex filename discovery to pick the newest file per account variant, rejecting Excel lock stubs and the tool's own prior output as decoys. That feeds two rule sets in parallel: Rule 1 on the clean-up tab pauses every row with a non-blank state, and Rule 2 on the manual-review tab pauses keyword or product-targeting rows with zero sales. Both converge into an editable preview, then an upload-ready export written to a separate file. A dashed rail running alongside the whole pipeline marks the source workbook as read-only and never mutated, from the initial scan through to export.">
+<title>Campaign pausing pipeline: shared-drive scan to Rule 1 and Rule 2 to editable preview to upload-ready export, source workbook read-only throughout</title>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#4a545e"/>
+  </marker>
+  <style>
+    .box { fill: #e7f0ef; stroke: #0f5c5a; stroke-width: 1.5; }
+    .box-dark { fill: #0f5c5a; stroke: #0a3f3e; stroke-width: 1.5; }
+    .lbl { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #14181c; }
+    .lbl-light { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #fbfaf8; }
+    .sub { font-family: ui-monospace, Consolas, monospace; fill: #4a545e; }
+    .sub-light { font-family: ui-monospace, Consolas, monospace; fill: #e7f0ef; }
+    .flow { stroke: #4a545e; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .rail { stroke: #4a545e; stroke-width: 1.25; fill: none; }
+    .dash { stroke: #7a8288; stroke-width: 1.25; fill: none; stroke-dasharray: 4 3; }
+  </style>
+</defs>
+
+<!-- Shared-drive scan -->
+<rect class="box" x="10" y="8" width="380" height="72" rx="4"/>
+<text class="lbl" x="200" y="30" font-size="16" text-anchor="middle">Shared-drive scan</text>
+<text class="sub" x="200" y="48" font-size="11" text-anchor="middle">regex filename discovery &#183; newest file per account variant</text>
+<text class="sub" x="200" y="63" font-size="11" text-anchor="middle">Excel lock stubs and prior output rejected as decoys</text>
+
+<!-- Fan-out to two rule sets -->
+<path class="rail" d="M200,80 L200,96"/>
+<path class="rail" d="M102.5,96 L297.5,96"/>
+<path class="flow" d="M102.5,96 L102.5,108"/>
+<path class="flow" d="M297.5,96 L297.5,108"/>
+
+<!-- Rule 1: clean-up tab -->
+<rect class="box" x="10" y="108" width="185" height="90" rx="4"/>
+<text class="lbl" x="102.5" y="130" font-size="12.5" text-anchor="middle">Rule 1 &#183; clean-up tab</text>
+<text class="sub" x="102.5" y="148" font-size="9.5" text-anchor="middle"><tspan x="102.5" dy="0">non-blank state</tspan><tspan x="102.5" dy="13">&#8594; update / paused</tspan></text>
+
+<!-- Rule 2: manual-review tab -->
+<rect class="box" x="205" y="108" width="185" height="90" rx="4"/>
+<text class="lbl" x="297.5" y="130" font-size="12.5" text-anchor="middle">Rule 2 &#183; manual review</text>
+<text class="sub" x="297.5" y="148" font-size="9.5" text-anchor="middle"><tspan x="297.5" dy="0">keyword/product targeting</tspan><tspan x="297.5" dy="13">+ zero sales &#8594; paused</tspan></text>
+
+<!-- Converge -->
+<path class="rail" d="M102.5,198 L102.5,210"/>
+<path class="rail" d="M297.5,198 L297.5,210"/>
+<path class="rail" d="M102.5,210 L297.5,210"/>
+<path class="flow" d="M200,210 L200,222"/>
+
+<!-- Editable preview -->
+<rect class="box-dark" x="10" y="222" width="380" height="56" rx="4"/>
+<text class="lbl-light" x="200" y="244" font-size="16" text-anchor="middle">Editable preview</text>
+<text class="sub-light" x="200" y="263" font-size="10.5" text-anchor="middle">reviewed row by row before anything is written</text>
+
+<path class="flow" d="M200,278 L200,290"/>
+
+<!-- Upload-ready export -->
+<rect class="box" x="10" y="290" width="380" height="56" rx="4"/>
+<text class="lbl" x="200" y="312" font-size="16" text-anchor="middle">Upload-ready export</text>
+<text class="sub" x="200" y="331" font-size="11" text-anchor="middle">separate file &#183; all 46 original columns preserved</text>
+
+<!-- Source workbook: read-only rail, alongside the whole pipeline -->
+<path class="dash" d="M414,8 L414,346"/>
+<path class="dash" d="M390,44 L414,44"/>
+<path class="dash" d="M390,153 L414,153"/>
+<path class="dash" d="M390,250 L414,250"/>
+<path class="dash" d="M390,318 L414,318"/>
+<text class="sub" x="434" y="177" font-size="11" text-anchor="middle" transform="rotate(-90 434 177)">Source workbook &#8212; read-only, never mutated</text>
+</svg>
