@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search Term Cannibalisation Audit — John Patrick Borabo</title>
+<meta name="description" content="A desktop tool that finds where an Amazon advertiser's own keywords bid against each other, built around a hand-written central-directory zip reader that defeats a silent infinite-hang defect in standard xlsx readers.">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="site-header__name" href="../index.html">John Patrick Borabo</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html#work" aria-current="page">Work</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#stack">Stack</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="section">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">Amazon Ads · Desktop App</p>
+    <h1 class="h1">Finding where an advertiser bids against themselves — and fixing a zip reader that could hang forever doing it</h1>
+    <p class="lede">A desktop tool that detects Amazon Sponsored Products keyword cannibalisation
+      — the same product and shopper search term bid on by two or more of an advertiser's own
+      keywords — built around a hand-written central-directory zip reader that sidesteps a
+      silent infinite-hang defect in standard xlsx readers.</p>
+    <ul class="tags">
+      <li class="tag">Electron</li>
+      <li class="tag">React</li>
+      <li class="tag">TypeScript</li>
+      <li class="tag">ExcelJS</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap--narrow">
+    <ul class="proof">
+      <li>
+        <span class="proof__num">172</span>
+        <span class="proof__label">automated test cases</span>
+      </li>
+      <li>
+        <span class="proof__num">24</span>
+        <span class="proof__label">test files, including a dedicated zip edge-case fixture</span>
+      </li>
+      <li>
+        <span class="proof__num">~16s</span>
+        <span class="proof__label">to parse a 23.5MB file with 43,000 search-term rows</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap--narrow prose">
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Context</h2>
+      <p>An Amazon Sponsored Products account can end up bidding against itself: two or more of
+        its own keywords converge on the same product for the same customer search term, so the
+        account's own ads compete against each other in the auction instead of against outside
+        sellers. Finding those overlaps by hand means cross-referencing search-term reports
+        against campaign structure across every ad group in an account, per match type — tedious
+        enough that it rarely gets done consistently across a large fleet of accounts.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">The problem</h2>
+      <p>Amazon's bulk exports are the only source for this: a workbook per account, with a
+        search-term sheet showing which keywords triggered which customer queries and a campaign
+        sheet holding every keyword's live state. Detecting cannibalisation means grouping
+        search-term rows by product identifier and customer search term, separately per match
+        type, and flagging any group served by two or more distinct keyword texts — then turning
+        that into something a human can review and something the platform can act on, without
+        misidentifying which live keyword row to pause.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">What I built</h2>
+      <p>A desktop scanner that reads an account's bulk export, groups search-term rows by
+        product identifier and customer search term per match type, and flags any group served
+        by two or more distinct keyword texts as cannibalisation. Rows on paused campaigns are
+        dropped before detection and counted separately as excluded, not silently skipped, so the
+        exclusion count is itself part of the audit trail. Cross-file variant grouping maps
+        sibling child products to a shared parent via a CSV synced from BigQuery, so
+        cannibalisation between competing product variants is caught even when their campaigns
+        live in different export files — candidates are pooled across the whole scan before
+        grouping runs.</p>
+      <p>Detection produces two outputs with different jobs. An Excel report across three sheets
+        is built for human review. A separate upload-ready pause file reproduces each selected
+        keyword's real campaign row exactly as the platform has it, changing only operation,
+        state, and entity — and it's matched by keyword ID, never by name, because identical
+        keyword and match-type pairs can legitimately exist in more than one ad group.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">The engineering problem</h2>
+      <p>The bulk exports themselves turned into the hardest part of the project. Amazon writes
+        them with a streaming zip writer that defers each entry's size to a trailing data
+        descriptor rather than declaring it up front in the local header. A naive sequential
+        reader has to scan forward hunting for that descriptor's signature — and if an entry's
+        compressed bytes happen to contain the same byte sequence, the read either truncates or
+        hangs forever, because the error surfaces on the stream itself rather than the async
+        iterator reading it, so the read neither resolves nor rejects. It just stops.</p>
+      <figure class="figure">
+        <img src="../assets/img/search-term-audit-arch.svg" alt="Diagram: bulk export files feed a central-directory zip read, which reads the archive's end-of-archive index up front and decompresses only the sheets it needs, instead of scanning forward for each entry the way a naive reader would. That feeds a SAX-streamed parse that holds constant memory regardless of sheet size. Parsed rows are grouped by product identifier, customer search term, and match type. Groups served by two or more distinct keyword texts are flagged as cannibalisation. The result splits into two outputs: a three-sheet Excel report for human review, and an upload-ready pause file that reproduces each selected keyword's real campaign row, matched by keyword ID.">
+        <figcaption class="figure__cap">Pipeline: bulk export files → central-directory zip read
+          (targeted decompression) → SAX-streamed parse → group by product + search term + match
+          type → flag groups with 2+ keywords → Excel report + upload-ready pause file.</figcaption>
+      </figure>
+      <p>The fix is to read the archive's central directory instead — the end-of-archive index
+        that carries every entry's true offset and size — so nothing is guessed and only the
+        sheets that are actually needed get decompressed. That's paired with a hand-rolled SAX
+        parser over the sheet XML, so memory stays constant regardless of how large a sheet is.</p>
+      <p>The rest of the performance work follows from that foundation. One worker thread runs
+        per file, from a pool sized to CPU cores minus one, and each file is capped at five
+        minutes so a single bad file can't stall a whole scan. A deliberate second pass only
+        returns to the campaign sheet — which can run to roughly 69,000 rows — after detection
+        has already narrowed down which keyword IDs actually matter, rather than carrying tens of
+        thousands of unusable rows through the app. Tolerant header aliasing resolves the
+        platform's inconsistent header names case- and whitespace-insensitively, so a differently
+        cased export doesn't silently drop a column. Measured end to end, a 23.5MB file with
+        43,000 search-term rows plus a 147,000-row campaign sheet parses in about 16 seconds.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">The migration</h2>
+      <p>The header-alias table is a port of a legacy VBA class module that matched headers by
+        hard-coded exact string comparison, which broke every time the platform varied its
+        casing. But the detection rule itself was changed, not ported: the legacy tool grouped by
+        product and keyword only and never read the customer search term column at all, so it
+        structurally could not perform this audit. It also summed metrics across rows where this
+        implementation keeps every raw row as its own line, preserving detail the old tool
+        discarded. The port explicitly guards against a known, numbered object-reuse defect in
+        the legacy tool that had produced cross-contaminated output rows — a documented bug this
+        version was written not to repeat.</p>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Result</h2>
+      <ul class="result-list">
+        <li>The central-directory zip read replaces a class of reads that could hang forever on a
+          byte-sequence collision with one that knows every entry's true offset and size before
+          it decompresses anything.</li>
+        <li>Detection is exact: groups are keyed by product, customer search term, and match
+          type, and cross-file variant grouping catches cannibalisation between sibling products
+          even when their campaigns live in separate export files.</li>
+        <li>The two output artifacts serve different audiences without drifting apart — a
+          three-sheet Excel report for human review, and a pause file matched by keyword ID that
+          reproduces each selected row exactly as the platform has it.</li>
+        <li>172 test cases across 24 files, including one built specifically to trigger the
+          streaming-zip data-descriptor collision, run against fixtures generated by a committed
+          generator script — the suite never depends on real client data.</li>
+        <li>A 23.5MB file with 43,000 search-term rows and a 147,000-row campaign sheet parses in
+          about 16 seconds.</li>
+      </ul>
+    </section>
+
+    <section class="cs-section reveal">
+      <h2 class="h2">Stack</h2>
+      <ul class="tags">
+        <li class="tag">Electron 31.4</li>
+        <li class="tag">React 18.3</li>
+        <li class="tag">Zustand 4.5</li>
+        <li class="tag">TanStack Table + Virtual</li>
+        <li class="tag">ExcelJS 4.4</li>
+        <li class="tag">saxes 5.0</li>
+        <li class="tag">Piscina 4.7</li>
+        <li class="tag">TypeScript 5.5</li>
+        <li class="tag">Vitest 2.0</li>
+      </ul>
+      <p class="figure__cap">All figures and examples on this page are drawn from the owner's
+        own repositories. No client information appears anywhere on this site.</p>
+    </section>
+
+    <p><a class="btn btn--ghost" href="../index.html#work">&larr; Back to work</a></p>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>John Patrick Borabo — Automation &amp; Data Systems Specialist. Antipolo City, Philippines (UTC+8).</p>
+    <p><a href="mailto:jaypee@amsmanagement.agency">jaypee@amsmanagement.agency</a></p>
+  </div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
