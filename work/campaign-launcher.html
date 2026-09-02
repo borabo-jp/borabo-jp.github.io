@@ -151,8 +151,7 @@
         <li>Campaign rules live in versioned, tested code instead of inside the same file as the
           product data — a rule change is a code change and a test run, not a search through
           211,000 lines of macro.</li>
-        <li>A session crash no longer costs the working file: the crash-recovery snapshot
-          recovers in-progress work instead of losing it.</li>
+        <li>A crash-recovery snapshot recovers in-progress work after a session crash.</li>
         <li>The generation engine's row order is asserted by parity tests against the legacy
           tool's output, so a future refactor can't quietly break the parent-child structure a
           bulk upload depends on — a campaign row still has to precede its own ad group, product
