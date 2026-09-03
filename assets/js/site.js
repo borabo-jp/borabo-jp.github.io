@@ -12,6 +12,28 @@
 
   document.documentElement.setAttribute("data-reveal-ready", "");
 
+  /* ------------------------------------------------------------------
+     Theme toggle — the inline <head> script already set data-theme
+     before first paint if a preference was stored; this wires the button.
+     ------------------------------------------------------------------ */
+  var themeToggle = document.getElementById("theme-toggle");
+  if (themeToggle) {
+    var describeTheme = function (theme) {
+      themeToggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+      themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    };
+    var systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    describeTheme(document.documentElement.getAttribute("data-theme") || (systemPrefersDark ? "dark" : "light"));
+
+    themeToggle.addEventListener("click", function () {
+      var current = document.documentElement.getAttribute("data-theme") || (systemPrefersDark ? "dark" : "light");
+      var next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      describeTheme(next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  }
+
   var reduceMotion = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
