@@ -7,11 +7,11 @@ Automation" as a named skill (use of Claude/AI coding agents in daily developmen
 supersedes the 2026-09-03 earlier-same-day draft, which was written before the pivot and still
 sold the narrow Amazon Ads angle.
 
-## One thing still outstanding
+## Site is live
 
-- `<PORTFOLIO_URL>` — will be `https://borabo-jp.github.io` once the site deploys (owner-blocked on
-  `gh auth login` under the correct `borabo-jp` account). Don't paste the placeholder token into a
-  live profile — wait until the site is up, then substitute the real address.
+The site deployed 2026-09-03 to `https://borabo-jp.github.io/`. Still open: add this URL to each
+platform's website/portfolio field (see the per-platform notes below), and publish the case
+studies as separate Upwork portfolio items.
 
 ## Standing constraint
 

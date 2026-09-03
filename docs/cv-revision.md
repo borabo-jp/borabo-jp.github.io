@@ -8,12 +8,7 @@ is kept as the readable, reviewable record of exactly what's in it — edit here
 change wording, then regenerate the PDF from `docs/cv.html` (instructions in a comment at the top
 of that file) or just ask for it to be regenerated.
 
-## One thing still outstanding
-
-- The portfolio URL is deliberately left out of the generated PDF's contact line — the site isn't
-  deployed yet (still owner-blocked on `gh auth login` and the Upwork/OnlineJobs.ph URLs), and a
-  CV linking to a 404 is worse than a CV with no link. Add `borabo-jp.github.io` to the contact
-  line in `docs/cv.html` and regenerate once Task 12 ships.
+The site deployed 2026-09-03 to `https://borabo-jp.github.io/` — the contact line now includes it.
 
 The AMS start date is confirmed (Feb 2026 — owner-supplied 2026-09-03) and reflected below, with
 the Intelegencia entry's end date set to the month immediately before it (Jan 2026), per the
@@ -28,7 +23,7 @@ Everything below matches what's in the generated PDF.
 ```
 JOHN PATRICK BORABO
 Automation & Data Systems Specialist | AI-Assisted Automation
-jaypeeborabo81@gmail.com | 09666973287 | Antipolo City, Philippines | <PORTFOLIO_URL>
+jaypeeborabo81@gmail.com | 09666973287 | Antipolo City, Philippines | borabo-jp.github.io
 ```
 
 Note: shortened "Cupang, Antipolo City" to "Antipolo City" in the header — city-level location is
