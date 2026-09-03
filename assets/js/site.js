@@ -41,7 +41,26 @@
   var heroPanel = document.querySelector(".hero-panel");
   if (modeSwitch && heroPanel) {
     var modeButtons = modeSwitch.querySelectorAll(".mode-switch__btn");
+    var timerEl = heroPanel.querySelector("[data-manual-timer]");
+    var timerHandle = null;
+
+    var stopTimer = function () {
+      if (timerHandle) { clearInterval(timerHandle); timerHandle = null; }
+    };
+    var startTimer = function () {
+      if (!timerEl || reduceMotion) return;
+      var startedAt = Date.now();
+      stopTimer();
+      timerHandle = setInterval(function () {
+        var elapsed = Math.floor((Date.now() - startedAt) / 1000);
+        var mins = Math.floor(elapsed / 60);
+        var secs = (elapsed % 60).toString().padStart(2, "0");
+        timerEl.textContent = "Time spent here: " + mins + ":" + secs;
+      }, 1000);
+    };
+
     var setMode = function (mode) {
+      modeSwitch.setAttribute("data-active", mode);
       modeButtons.forEach(function (btn) {
         var active = btn.getAttribute("data-mode") === mode;
         btn.setAttribute("aria-pressed", active ? "true" : "false");
@@ -51,10 +70,40 @@
         view.classList.toggle("is-active", active);
         view.setAttribute("aria-hidden", active ? "false" : "true");
       });
+      if (mode === "manual") startTimer(); else stopTimer();
     };
     modeButtons.forEach(function (btn) {
       btn.addEventListener("click", function () { setMode(btn.getAttribute("data-mode")); });
     });
+
+    /* Hero diagram — hover/focus explorable, same pattern as the flagship case study */
+    var autoDiagram = heroPanel.querySelector(".auto-diagram");
+    var autoReadout = heroPanel.querySelector("[data-auto-readout]");
+    if (autoDiagram && autoReadout) {
+      var defaultReadout = autoReadout.textContent;
+      var autoStages = autoDiagram.querySelectorAll("[data-stage]");
+      var autoCaptions = {
+        source: "Spreadsheets and exports land here — the same messy inputs shown in Manual mode.",
+        automation: "Rules and automated tests run against every input before anything moves on.",
+        export: "Output lands on schedule, with nobody clicking a button to send it."
+      };
+      autoStages.forEach(function (stage) {
+        var focus = function () {
+          autoDiagram.classList.add("has-focus");
+          autoStages.forEach(function (s) { s.classList.toggle("is-active", s === stage); });
+          autoReadout.textContent = autoCaptions[stage.getAttribute("data-stage")] || defaultReadout;
+        };
+        var clear = function () {
+          autoDiagram.classList.remove("has-focus");
+          autoStages.forEach(function (s) { s.classList.remove("is-active"); });
+          autoReadout.textContent = defaultReadout;
+        };
+        stage.addEventListener("mouseenter", focus);
+        stage.addEventListener("focus", focus);
+        stage.addEventListener("mouseleave", clear);
+        stage.addEventListener("blur", clear);
+      });
+    }
   }
 
   /* ------------------------------------------------------------------
