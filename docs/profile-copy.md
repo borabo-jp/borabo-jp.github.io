@@ -37,10 +37,20 @@ an authenticated browser session, 2026-09-03.
 - Fixed two stale skill-duration fields that undercut the headline: Data Analytics and Power BI
   both corrected from under-a-year defaults to 5+ years
 
+- **2026-09-03, later same day:** removed the "38-account client fleet" figure from the
+  description (project-specific scale claim, not a general skill) and rebalanced toward
+  automation + dashboarding breadth. Added Microsoft SQL Server (rated 2–5 years, 4/5) as a
+  top skill via the skills-rating flow; Power BI and "AI Automation" were auto-suggested from the
+  rewritten description text and confirmed. MS Access has no matching entry in OnlineJobs.ph's
+  skill taxonomy (searched "Microsoft Access", "MS Access", "Access" — no results), so it's
+  documented in the description text only, not as a tagged skill.
+
 **Still open:**
-- Add the portfolio link once the site deploys — confirm the profile's website/portfolio field is
-  actually visible to viewers, not just filled in.
-- Rate ($8.66/hr) still reflects the old general-VA/reporting framing — worth reconsidering now
+- Add the portfolio link once the site deploys — the "Portfolio / Website" field still reads "Not
+  Specified" on the live profile, and its edit path wasn't found in the standard profile/dashboard
+  UI (unlike the title and description, which are click-to-edit inline). Owner should locate this
+  themselves, likely under a different account-settings page.
+- Rate (₱530/hr) still reflects the old general-VA/reporting framing — worth reconsidering now
   that the profile documents production tooling work, but that's the owner's call.
 
 ---
@@ -71,6 +81,12 @@ Edited directly on the owner's profile
   LTD, Mar 2017 – Apr 2019" entry into "Customer Service Associate" (Mar 2017 – Oct 2018) and
   "Escalation Specialist" (Oct 2018 – Apr 2019). All 9 Upwork employment entries now match the CV
   exactly — verified by reloading the live profile and reading the full expanded list.
+
+- **2026-09-03, later same day:** rewrote the overview to remove the "38-account client fleet"
+  figure (project-specific scale, not a general skill claim) and rebalance toward automation +
+  dashboarding breadth, adding explicit mention of the BigQuery/SQL Server warehouse and Power BI
+  reporting layer. Expanded skills from 12 to 16 tags: added Microsoft Power BI, Microsoft SQL
+  Server, Microsoft Access, and AI Agent Development.
 
 **Still open:**
 - Verify identity (still unverified as of last check) — affects client trust signals.
