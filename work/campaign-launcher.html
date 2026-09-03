@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Campaign Launcher — John Patrick Borabo</title>
 <meta name="description" content="A desktop app that expands a spreadsheet of products and keywords into upload-ready Amazon Sponsored Products bulk files, replacing a 211,000-line Excel macro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/site.css">
 <script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
 </head>
@@ -29,7 +32,7 @@
 
 <section class="section">
   <div class="wrap wrap--narrow">
-    <p class="eyebrow">Amazon Ads · Desktop App</p>
+    <p class="kicker">Amazon Ads · Desktop App</p>
     <h1 class="h1">Replacing a 211,000-line Excel macro with a tested campaign generator</h1>
     <p class="lede">A Windows desktop app that turns a spreadsheet of products and keywords into
       upload-ready Amazon Sponsored Products bulk files — built as a faithful, testable
@@ -93,10 +96,88 @@
         Exact, and product-page targeting, which itself splits into self, competitor, and
         brand-reinforcement variants.</p>
       <figure class="figure">
-        <img src="../assets/img/campaign-launcher-arch.svg" alt="Diagram: input grids for products, keywords, and search-term gaps feed a validation stage of eight hard rules, then a generation engine that expands each product into five parallel campaign types — Auto, Broad, Phrase, Exact, and product-page targeting — before all five converge into a single bulk export as .xlsx or .csv.">
-        <figcaption class="figure__cap">Data flow: input grids → validation (8 rules) →
+        <svg class="arch-diagram" viewBox="0 0 400 340" role="img" aria-label="Flow diagram. Three input grids — products, keywords, and search-term gaps — feed into a validation stage of eight hard rules. Validated data passes to the generation engine, which expands each product into five parallel campaign types: Auto, Broad, Phrase, Exact, and product-page targeting. All five converge into a single bulk export as .xlsx or .csv, ready to upload to Amazon. Hover or focus any stage below for details.">
+        <title>Campaign Launcher data flow: input grids to validation to generation engine to five campaign types to bulk export</title>
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4a545e"/>
+          </marker>
+          <style>
+            .box { fill: #e7f0ef; stroke: #0f5c5a; stroke-width: 1.5; }
+            .box-dark { fill: #0f5c5a; stroke: #0a3f3e; stroke-width: 1.5; }
+            .lbl { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #14181c; }
+            .lbl-light { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #fbfaf8; }
+            .sub { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; fill: #4a545e; }
+            .sub-light { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; fill: #e7f0ef; }
+            .type { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; font-weight: 600; fill: #0a3f3e; }
+            .flow { stroke: #4a545e; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+            .rail { stroke: #4a545e; stroke-width: 1.25; fill: none; }
+          </style>
+        </defs>
+
+        <g data-stage="input" tabindex="0" role="button" aria-label="Input grids stage">
+          <rect class="box" x="10" y="8" width="380" height="52" rx="4"/>
+          <text class="lbl" x="200" y="30" font-size="16" text-anchor="middle">Input grids</text>
+          <text class="sub" x="200" y="49" font-size="11" text-anchor="middle">products · keywords · search-term gaps</text>
+        </g>
+
+        <path class="flow" d="M200,60 L200,80"/>
+
+        <g data-stage="validation" tabindex="0" role="button" aria-label="Validation stage">
+          <rect class="box" x="10" y="80" width="380" height="42" rx="4"/>
+          <text class="lbl" x="200" y="106" font-size="16" text-anchor="middle">Validation — 8 rules</text>
+        </g>
+
+        <path class="flow" d="M200,122 L200,142"/>
+
+        <g data-stage="engine" tabindex="0" role="button" aria-label="Generation engine stage">
+          <rect class="box-dark" x="10" y="142" width="380" height="42" rx="4"/>
+          <text class="lbl-light" x="200" y="168" font-size="16" text-anchor="middle">Generation engine</text>
+        </g>
+
+        <path class="rail" d="M200,184 L200,196"/>
+        <path class="rail" d="M45,196 L354,196"/>
+        <path class="flow" d="M45,196 L45,208"/>
+        <path class="flow" d="M122,196 L122,208"/>
+        <path class="flow" d="M199,196 L199,208"/>
+        <path class="flow" d="M276,196 L276,208"/>
+        <path class="flow" d="M354,196 L354,208"/>
+
+        <g data-stage="types" tabindex="0" role="button" aria-label="Five campaign types stage">
+          <rect class="box" x="10" y="208" width="70" height="48" rx="4"/>
+          <text class="type" x="45" y="237" font-size="11" text-anchor="middle">Auto</text>
+
+          <rect class="box" x="87" y="208" width="70" height="48" rx="4"/>
+          <text class="type" x="122" y="237" font-size="11" text-anchor="middle">Broad</text>
+
+          <rect class="box" x="164" y="208" width="70" height="48" rx="4"/>
+          <text class="type" x="199" y="237" font-size="11" text-anchor="middle">Phrase</text>
+
+          <rect class="box" x="241" y="208" width="70" height="48" rx="4"/>
+          <text class="type" x="276" y="237" font-size="11" text-anchor="middle">Exact</text>
+
+          <rect class="box" x="318" y="208" width="72" height="48" rx="4"/>
+          <text class="type" x="354" y="231" font-size="10.5" text-anchor="middle">Product</text>
+          <text class="type" x="354" y="244" font-size="10.5" text-anchor="middle">page</text>
+        </g>
+
+        <path class="rail" d="M45,256 L45,268"/>
+        <path class="rail" d="M122,256 L122,268"/>
+        <path class="rail" d="M199,256 L199,268"/>
+        <path class="rail" d="M276,256 L276,268"/>
+        <path class="rail" d="M354,256 L354,268"/>
+        <path class="rail" d="M45,268 L354,268"/>
+        <path class="flow" d="M200,268 L200,280"/>
+
+        <g data-stage="export" tabindex="0" role="button" aria-label="Bulk export stage">
+          <rect class="box-dark" x="10" y="280" width="380" height="52" rx="4"/>
+          <text class="lbl-light" x="200" y="302" font-size="16" text-anchor="middle">Bulk export</text>
+          <text class="sub-light" x="200" y="321" font-size="11" text-anchor="middle">.xlsx (ExcelJS) · .csv (RFC 4180)</text>
+        </g>
+        </svg>
+        <figcaption class="figure__cap arch-diagram__cap">Data flow: input grids → validation (8 rules) →
           generation engine → five campaign types (Auto, Broad, Phrase, Exact, product-page
-          targeting) → bulk export as .xlsx or .csv.</figcaption>
+          targeting) → bulk export as .xlsx or .csv. Hover or focus a stage above for details.</figcaption>
       </figure>
       <p>The search-term gap tab ingests a real Amazon search term report and mines converting
         terms the account is not yet bidding on, generating product and keyword rows with

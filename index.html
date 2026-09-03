@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>John Patrick Borabo — Automation &amp; Data Systems Specialist</title>
 <meta name="description" content="I build and operate internal tooling — desktop apps, AI-assisted automation, cloud services — for a data-driven operation running dozens of accounts, plus 8+ years in reporting and BI before that.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
 <script>(function(h){h.className+=" js";setTimeout(function(){if(!h.hasAttribute("data-reveal-ready")){h.className=h.className.replace(/\s*\bjs\b/,"");}},2000);})(document.documentElement);</script>
 </head>
@@ -27,17 +30,72 @@
 
 <main id="main">
 
-<section class="section">
-  <div class="wrap wrap--narrow">
-    <p class="eyebrow">Automation &amp; Data Systems Specialist</p>
-    <h1 class="h1">I build the internal tooling that a data-driven operation runs its weekly cycle on</h1>
-    <p class="lede">Sole engineer for an internal tooling stack — desktop apps, scheduled
-      automation, AI-assisted development with Claude, and BI dashboards and reporting pipelines
-      built on BigQuery, Power BI, SQL Server, and MS Access. Eight years in data and reporting
-      before that. Based in the Philippines (UTC+8), with working hours that overlap US mornings.</p>
-    <div class="btn-row">
-      <a class="btn btn--primary" href="#work">See the work</a>
-      <a class="btn btn--ghost" href="#contact">Get in touch</a>
+<section class="section hero">
+  <div class="wrap hero__wrap">
+    <div class="hero__copy">
+      <p class="kicker">Automation &amp; Data Systems Specialist</p>
+      <h1 class="h1">I build the internal tooling that a data-driven operation runs its weekly cycle on</h1>
+      <p class="lede">Sole engineer for an internal tooling stack — desktop apps, scheduled
+        automation, AI-assisted development with Claude, and BI dashboards and reporting pipelines
+        built on BigQuery, Power BI, SQL Server, and MS Access. Eight years in data and reporting
+        before that. Based in the Philippines (UTC+8), with working hours that overlap US mornings.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="#work">See the work</a>
+        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="hero__demo">
+      <div class="mode-switch" role="group" aria-label="Toggle between manual and automated workflow">
+        <button type="button" class="mode-switch__btn" data-mode="manual" aria-pressed="false">Manual</button>
+        <button type="button" class="mode-switch__btn" data-mode="auto" aria-pressed="true">Automated</button>
+      </div>
+
+      <div class="hero-panel">
+        <div class="hero-panel__view hero-panel__view--manual" data-view="manual" aria-hidden="true">
+          <div class="manual-grid">
+            <div class="manual-grid__row">
+              <span class="manual-cell">Row 1183</span>
+              <span class="manual-cell manual-cell--warn">#REF!</span>
+              <span class="manual-cell">42.10</span>
+            </div>
+            <div class="manual-grid__row manual-grid__row--skew">
+              <span class="manual-cell">Sheet7_FINAL_v3</span>
+              <span class="manual-cell">17.4</span>
+              <span class="manual-cell manual-cell--warn">#REF!</span>
+            </div>
+            <div class="manual-grid__row">
+              <span class="manual-cell">copy (2).xlsx</span>
+              <span class="manual-cell">—</span>
+              <span class="manual-cell">9.87</span>
+            </div>
+          </div>
+          <p class="hero-panel__readout">6 manual hours this week</p>
+        </div>
+
+        <div class="hero-panel__view hero-panel__view--auto is-active" data-view="auto" aria-hidden="false">
+          <svg class="auto-diagram" viewBox="0 0 320 140" role="img" aria-label="Diagram: source files flow into the automation engine, then out as a scheduled export, with no manual steps.">
+            <defs>
+              <marker id="heroArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path class="arrow-head" d="M0,0 L10,5 L0,10 z"></path>
+              </marker>
+            </defs>
+            <line x1="80" y1="70" x2="121" y2="70" marker-end="url(#heroArrow)"></line>
+            <line x1="195" y1="70" x2="236" y2="70" marker-end="url(#heroArrow)"></line>
+            <rect x="10" y="50" width="70" height="40" rx="4"></rect>
+            <text class="stage-label" x="45" y="66" text-anchor="middle">Source files</text>
+            <text x="45" y="80" text-anchor="middle">spreadsheets</text>
+            <rect x="125" y="50" width="70" height="40" rx="4"></rect>
+            <text class="stage-label" x="160" y="66" text-anchor="middle">Automation</text>
+            <text x="160" y="80" text-anchor="middle">rules + tests</text>
+            <rect x="240" y="50" width="70" height="40" rx="4"></rect>
+            <text class="stage-label" x="275" y="66" text-anchor="middle">Export</text>
+            <text x="275" y="80" text-anchor="middle">scheduled</text>
+            <circle class="auto-diagram__pulse" r="3"></circle>
+          </svg>
+          <p class="hero-panel__readout">0 manual hours · runs on schedule</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -63,7 +121,6 @@
 
 <section class="section reveal" id="work">
   <div class="wrap">
-    <p class="eyebrow">Work</p>
     <h2 class="h2">Automation tooling, shipped and in daily use</h2>
     <ul class="work-grid">
 
@@ -167,7 +224,6 @@
 
 <section class="section section--tint reveal" id="services">
   <div class="wrap">
-    <p class="eyebrow">Services</p>
     <h2 class="h2">Beyond the case studies above</h2>
     <ul class="svc-grid">
       <li class="svc">
@@ -208,7 +264,6 @@
 
 <section class="section reveal" id="stack">
   <div class="wrap wrap--narrow">
-    <p class="eyebrow">Stack</p>
     <h2 class="h2">What I build with</h2>
 
     <div class="stack-group">
@@ -258,7 +313,7 @@
 
 <section class="section section--tint reveal" id="about">
   <div class="wrap wrap--narrow">
-    <p class="eyebrow">About</p>
+    <h2 class="h2">About</h2>
     <div class="about-grid">
       <img class="portrait" src="assets/img/portrait.jpg" alt="Portrait of John Patrick Borabo" width="288" height="288">
       <div class="about-grid__body">
@@ -277,7 +332,6 @@
 
 <section class="section reveal" id="contact">
   <div class="wrap wrap--narrow">
-    <p class="eyebrow">Contact</p>
     <h2 class="h2">Get in touch</h2>
     <p class="lede">Open to automation, data systems, and AI-assisted tooling work —
       spreadsheet-scale or systems-scale.</p>
