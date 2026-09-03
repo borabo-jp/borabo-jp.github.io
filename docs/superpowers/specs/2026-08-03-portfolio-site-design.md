@@ -152,6 +152,18 @@ still convert — but it stops being the headline.
 The profile copy written in `docs/profile-copy.md` predates this finding and sells the generalist
 framing. It requires a rewrite against this positioning.
 
+**REVISION 2026-09-03 — positioning reversed at owner's direction.** The owner asked to move away
+from the narrow "Amazon Ads" framing above and lead instead with his actual job title,
+"Automation & Data Systems Specialist," plus "AI-Assisted Automation" (his use of Claude and AI
+coding agents as a standard part of the work) as a named skill. Reasoning given: the narrow framing
+was screening him out of general automation/data-systems roles he also wants to be considered for,
+not just Amazon-specific work. This argument's commercial case for a narrow Amazon PPC niche still
+holds as a market observation, but the owner has chosen breadth of opportunity over niche rate
+premium. The site (`index.html`), CV (`docs/cv.html`, `docs/cv-revision.md`), README, and both
+platform profiles (`docs/profile-copy.md`) were updated to the broader framing on 2026-09-03. Case
+studies themselves are unchanged — they remain real, Amazon-Ads-specific evidence, now presented
+as depth within a broader automation-engineer identity rather than as the entire identity.
+
 ### Proof numbers — verifiable only
 
 **772 test cases** across the three desktop apps (510 + 172 + 90), plus 29 in the alerting service.

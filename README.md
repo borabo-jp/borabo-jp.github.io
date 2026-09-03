@@ -1,6 +1,6 @@
 # borabo-jp.github.io
 
-Portfolio site for John Patrick Borabo — Amazon Ads Automation & Data Systems Specialist.
+Portfolio site for John Patrick Borabo — Automation & Data Systems Specialist.
 
 Hand-written HTML and CSS. No framework, no build step, no dependencies, no
 JavaScript beyond a scroll-reveal observer. Deployed via GitHub Pages.

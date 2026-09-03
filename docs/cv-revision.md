@@ -27,7 +27,7 @@ Everything below matches what's in the generated PDF.
 
 ```
 JOHN PATRICK BORABO
-Amazon Ads Automation & Data Systems Specialist
+Automation & Data Systems Specialist | AI-Assisted Automation
 jaypeeborabo81@gmail.com | 09666973287 | Antipolo City, Philippines | <PORTFOLIO_URL>
 ```
 
@@ -45,11 +45,11 @@ from this document and keep it only in the version you send directly to clients.
 
 ```
 Automation and data-systems engineer with 8+ years in data and reporting. I currently build and
-operate the internal tooling stack for an Amazon advertising agency — three production desktop
-applications with over 750 automated tests between them, a scheduled bid-optimisation system
-running across a 38-account client fleet, and a cloud-based catalog alerting service — on top of
-the BigQuery warehouse and reporting layer underneath. I ship systems that keep running, not
-one-off reports.
+operate the internal tooling stack for a digital agency — three production desktop applications
+with over 750 automated tests between them, a scheduled bid-optimisation system running across a
+38-account client fleet, and a cloud-based catalog alerting service — on top of the BigQuery
+warehouse and reporting layer underneath, using AI-assisted development (Claude) to build and ship
+faster. I ship systems that keep running, not one-off reports.
 ```
 
 ---
@@ -72,7 +72,8 @@ Automation & Data Systems Specialist | AMS Management          Feb 2026 – Pres
 • Built a Cloud Run and BigQuery service that diffs daily catalog and inventory state against a
   rolling history and emails a grouped change digest, piloted on a live seller account.
 • Own the BigQuery warehouse and Looker Studio / Google Sheets reporting layer the rest of the
-  tooling stack runs on, plus the agency's public-facing website.
+  tooling stack runs on, plus the agency's public-facing website — using AI coding tools (Claude)
+  as a standard part of the development workflow.
 ```
 
 **Intelegencia entry — end date filled in** (Jan 2026, the month before the Feb 2026 AMS start):
@@ -164,6 +165,9 @@ Data Automation: VBA Macros, Google Apps Script, PowerShell, SQL, MS Access, Pow
 Data Warehousing & Cloud: BigQuery, Google Cloud Run, Cloud Scheduler.
 
 Reporting & BI: Excel, Google Sheets, Power BI, Looker Studio.
+
+AI-Assisted Automation: Claude and AI coding agents used as a standard part of building, testing,
+and shipping the tooling above.
 
 Process & Reliability: Staged rollouts, access-control design, idempotent scheduled automation,
 documentation and SOPs for non-technical operators.
