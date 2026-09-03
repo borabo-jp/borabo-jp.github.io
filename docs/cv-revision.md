@@ -23,7 +23,7 @@ Everything below matches what's in the generated PDF.
 ```
 JOHN PATRICK BORABO
 Automation & Data Systems Specialist | AI-Assisted Automation
-jaypeeborabo81@gmail.com | 09666973287 | Antipolo City, Philippines | borabo-jp.github.io
+Jaypeeborabo81@gmail.com | 09666973287 | Antipolo City, Philippines | borabo-jp.github.io
 ```
 
 Note: shortened "Cupang, Antipolo City" to "Antipolo City" in the header — city-level location is
@@ -41,9 +41,9 @@ from this document and keep it only in the version you send directly to clients.
 ```
 Automation and data-systems engineer with 8+ years in data and reporting. I currently build and
 operate the internal tooling stack for a digital agency — three production desktop applications
-with over 750 automated tests between them, a scheduled bid-optimisation system running across a
-38-account client fleet, and a cloud-based catalog alerting service — on top of the BigQuery
-warehouse and reporting layer underneath, using AI-assisted development (Claude) to build and ship
+with over 750 automated tests between them, scheduled automation pipelines, and a cloud-based
+catalog alerting service — on top of a BigQuery and SQL Server warehouse with Power BI, MS Access,
+and Google Sheets reporting layers, using AI-assisted development (Claude) to build and ship
 faster. I ship systems that keep running, not one-off reports.
 ```
 
@@ -62,13 +62,13 @@ Automation & Data Systems Specialist | AMS Management          Feb 2026 – Pres
   and weekly campaign pausing — over 750 automated tests across the three, sharing one common
   device-based access-control system.
 • Automated the agency's weekly Amazon Ads bid-optimisation cycle — VBA and PowerShell-driven
-  scheduling across a 38-workbook client fleet, with staged rollout, timestamped backups, and
-  zero failures logged across the automated fleet.
+  scheduling across the client account fleet, with staged rollout, timestamped backups, and
+  zero failures logged.
 • Built a Cloud Run and BigQuery service that diffs daily catalog and inventory state against a
   rolling history and emails a grouped change digest, piloted on a live seller account.
-• Own the BigQuery warehouse and Looker Studio / Google Sheets reporting layer the rest of the
-  tooling stack runs on, plus the agency's public-facing website — using AI coding tools (Claude)
-  as a standard part of the development workflow.
+• Own the BigQuery and SQL Server warehouse and the Power BI / Looker Studio / Google Sheets
+  reporting layer the rest of the tooling stack runs on, plus the agency's public-facing website —
+  using AI coding tools (Claude) as a standard part of the development workflow.
 ```
 
 **Intelegencia entry — end date filled in** (Jan 2026, the month before the Feb 2026 AMS start):
@@ -155,9 +155,10 @@ search-term cannibalisation auditing, campaign pause automation, catalog change 
 Application Development: Electron, TypeScript, React, Python, automated testing (750+ tests
 shipped across three production desktop apps).
 
-Data Automation: VBA Macros, Google Apps Script, PowerShell, SQL, MS Access, Power Query.
+Data Automation: VBA Macros, Google Apps Script, PowerShell, SQL, Microsoft SQL Server, MS Access,
+Power Query.
 
-Data Warehousing & Cloud: BigQuery, Google Cloud Run, Cloud Scheduler.
+Data Warehousing & Cloud: BigQuery, Microsoft SQL Server, Google Cloud Run, Cloud Scheduler.
 
 Reporting & BI: Excel, Google Sheets, Power BI, Looker Studio.
 
