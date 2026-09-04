@@ -289,43 +289,47 @@ a:hover { color: var(--accent-ink); }
 }
 
 /* ==========================================================================
-   Work grid
+   Case list — editorial, alternating full-width rows (replaces a uniform
+   card grid: each project gets room to breathe and reads like a portfolio
+   spread rather than a tiled SaaS feature grid)
    ========================================================================== */
-.work-grid {
+.case-list { list-style: none; margin: 0; padding: 0; }
+.case-row {
   display: grid; gap: var(--sp-5);
-  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
-  list-style: none; margin: 0; padding: 0;
+  padding-block: var(--sp-7);
+  border-top: 1px solid var(--line);
+  text-decoration: none; color: inherit;
 }
-.work-card {
-  display: flex; flex-direction: column;
-  background: var(--paper);
+.case-list li:first-child .case-row { border-top: none; padding-top: 0; }
+.case-row__media {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  overflow: hidden;
-  text-decoration: none; color: inherit;
-  transition: background-color .25s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease;
-}
-.work-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px -12px rgb(20 24 28 / 0.35);
-}
-.work-card img {
-  aspect-ratio: 16 / 10; object-fit: cover;
-  border-bottom: 1px solid var(--line);
   background: var(--paper-tint);
+  padding: var(--sp-5);
+  transition: border-color .15s ease, background-color .25s ease;
 }
-/* SVG architecture-diagram thumbnails (index.html work grid): contain rather than
-   cover, so a squarish diagram doesn't get its top/bottom labels cropped off inside
-   the 16:10 card frame. */
-.work-card img[src$=".svg"] {
-  object-fit: contain;
-  padding: var(--sp-3);
+.case-row__media img { aspect-ratio: 16 / 10; object-fit: contain; }
+.case-row:hover .case-row__media { border-color: var(--accent); }
+.case-row__body { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
+.case-row__meta { font: 500 var(--fs-xs)/1.4 var(--sans); color: var(--ink-faint); margin: 0; }
+.case-row__title {
+  display: flex; align-items: baseline; gap: var(--sp-2);
+  font: 640 var(--fs-h3)/1.25 var(--display); letter-spacing: -0.012em; margin: 0;
 }
-.work-card__body { padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); flex: 1; }
-.work-card__title { font: 640 var(--fs-h3)/1.25 var(--display); letter-spacing: -0.012em; margin: 0; }
-.work-card__meta { font: 500 var(--fs-xs)/1.4 var(--sans); color: var(--ink-faint); margin: 0; }
-.work-card p { margin: 0; color: var(--ink-soft); font-size: var(--fs-sm); }
+.case-row__title-text { background-image: linear-gradient(var(--accent), var(--accent)); background-repeat: no-repeat; background-position: 0 100%; background-size: 0% 1px; transition: background-size .2s ease; }
+.case-row:hover .case-row__title-text { background-size: 100% 1px; }
+.case-row__arrow { flex: none; width: 1rem; height: 1rem; color: var(--accent); transition: transform .15s ease; }
+.case-row:hover .case-row__arrow { transform: translate(2px, -2px); }
+.case-row p { margin: 0; color: var(--ink-soft); font-size: var(--fs-sm); max-width: 34rem; }
+
+@media (min-width: 56rem) {
+  .case-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: var(--sp-8); }
+  .case-list li:nth-child(even) .case-row__media { order: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-row__title-text, .case-row__arrow, .case-row__media { transition: none; }
+}
 
 /* ==========================================================================
    Tags
@@ -339,11 +343,19 @@ a:hover { color: var(--accent-ink); }
 }
 
 /* ==========================================================================
-   Services / stack
+   Capabilities — services + stack merged into one two-column section
    ========================================================================== */
-.svc-grid {
-  display: grid; gap: var(--sp-5) var(--sp-6);
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+.capabilities-grid { display: grid; gap: var(--sp-8); }
+@media (min-width: 56rem) {
+  .capabilities-grid { grid-template-columns: 1.2fr 1fr; }
+}
+.capabilities-grid h3.capabilities-subhead {
+  font: 600 var(--fs-sm)/1.2 var(--sans);
+  color: var(--ink-faint); margin: 0 0 var(--sp-5);
+}
+
+.svc-list {
+  display: flex; flex-direction: column; gap: var(--sp-5);
   list-style: none; margin: 0; padding: 0;
 }
 .svc { border-top: 2px solid var(--ink); padding-top: var(--sp-4); }
@@ -351,6 +363,7 @@ a:hover { color: var(--accent-ink); }
 .svc p { margin: 0; font-size: var(--fs-sm); color: var(--ink-soft); }
 
 .stack-group { margin-bottom: var(--sp-5); }
+.stack-group:last-child { margin-bottom: 0; }
 .stack-group h3 {
   font: 600 var(--fs-sm)/1.2 var(--sans);
   color: var(--ink-faint); margin: 0 0 var(--sp-3);
@@ -402,6 +415,12 @@ a:hover { color: var(--accent-ink); }
 
 @media (min-width: 40rem) {
   .about-grid { grid-template-columns: 9rem minmax(0, 1fr); gap: var(--sp-6); }
+}
+
+.closing-contact {
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-7);
+  border-top: 1px solid var(--line);
 }
 
 /* ==========================================================================
@@ -562,6 +581,4 @@ a:hover { color: var(--accent-ink); }
   html { scroll-behavior: auto; }
   .js .reveal { opacity: 1; transform: none; }
   .js .reveal.is-in { transition: none; }
-  .work-card { transition: none; }
-  .work-card:hover { transform: none; }
 }

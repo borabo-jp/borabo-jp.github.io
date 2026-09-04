@@ -21,8 +21,7 @@
     <nav class="site-nav" aria-label="Main">
       <ul>
         <li><a href="index.html#work">Work</a></li>
-        <li><a href="index.html#services">Services</a></li>
-        <li><a href="index.html#stack">Stack</a></li>
+        <li><a href="index.html#capabilities">Capabilities</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
     </nav>
@@ -134,14 +133,16 @@
 <section class="section reveal" id="work">
   <div class="wrap">
     <h2 class="h2">Automation tooling, shipped and in daily use</h2>
-    <ul class="work-grid">
+    <ul class="case-list">
 
       <li>
-        <a class="work-card" href="work/campaign-launcher.html">
-          <img src="assets/img/campaign-launcher-arch.svg" alt="Architecture diagram: input grids feed a validation stage, then a generation engine that expands each product into five parallel campaign types before converging into a single bulk export.">
-          <div class="work-card__body">
-            <p class="work-card__meta">Amazon Ads · Desktop App</p>
-            <h3 class="work-card__title">Replacing a 211,000-line Excel macro with a tested campaign generator</h3>
+        <a class="case-row" href="work/campaign-launcher.html">
+          <div class="case-row__media">
+            <img src="assets/img/campaign-launcher-arch.svg" alt="Architecture diagram: input grids feed a validation stage, then a generation engine that expands each product into five parallel campaign types before converging into a single bulk export.">
+          </div>
+          <div class="case-row__body">
+            <p class="case-row__meta">Amazon Ads · Desktop App</p>
+            <h3 class="case-row__title"><span class="case-row__title-text">Replacing a 211,000-line Excel macro with a tested campaign generator</span><svg class="case-row__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12L12 4M12 4H5M12 4V11"></path></svg></h3>
             <p>A Windows desktop app that turns a spreadsheet of products and keywords into
               upload-ready Amazon Sponsored Products bulk files — a tested reimplementation of a
               legacy VBA workbook.</p>
@@ -156,11 +157,13 @@
       </li>
 
       <li>
-        <a class="work-card" href="work/bid-optimisation-autorun.html">
-          <img src="assets/img/bid-optimisation-arch.svg" alt="Architecture diagram: a prep stage scans a shared-drive tree of client account folders and writes a standardised weekly prep file, which feeds a bid engine stage.">
-          <div class="work-card__body">
-            <p class="work-card__meta">Amazon Ads · Automation</p>
-            <h3 class="work-card__title">Automating a 38-workbook weekly bid cycle without a single bad upload</h3>
+        <a class="case-row" href="work/bid-optimisation-autorun.html">
+          <div class="case-row__media">
+            <img src="assets/img/bid-optimisation-arch.svg" alt="Architecture diagram: a prep stage scans a shared-drive tree of client account folders and writes a standardised weekly prep file, which feeds a bid engine stage.">
+          </div>
+          <div class="case-row__body">
+            <p class="case-row__meta">Amazon Ads · Automation</p>
+            <h3 class="case-row__title"><span class="case-row__title-text">Automating a 38-workbook weekly bid cycle without a single bad upload</span><svg class="case-row__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12L12 4M12 4H5M12 4V11"></path></svg></h3>
             <p>Scheduled VBA and PowerShell automation that runs the weekly Sponsored Products
               and Sponsored Display bid-optimisation cycle across a fleet of client workbooks.</p>
             <ul class="tags">
@@ -174,11 +177,13 @@
       </li>
 
       <li>
-        <a class="work-card" href="work/campaign-pausing-tool.html">
-          <img src="assets/img/campaign-pausing-tool-arch.svg" alt="Architecture diagram: a shared-drive scan picks the newest file per account variant, which feeds two rule sets running in parallel.">
-          <div class="work-card__body">
-            <p class="work-card__meta">Amazon Ads · Desktop App</p>
-            <h3 class="work-card__title">Automating a weekly pause pass across 38 client accounts without ever touching the source file</h3>
+        <a class="case-row" href="work/campaign-pausing-tool.html">
+          <div class="case-row__media">
+            <img src="assets/img/campaign-pausing-tool-arch.svg" alt="Architecture diagram: a shared-drive scan picks the newest file per account variant, which feeds two rule sets running in parallel.">
+          </div>
+          <div class="case-row__body">
+            <p class="case-row__meta">Amazon Ads · Desktop App</p>
+            <h3 class="case-row__title"><span class="case-row__title-text">Automating a weekly pause pass across 38 client accounts without ever touching the source file</span><svg class="case-row__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12L12 4M12 4H5M12 4V11"></path></svg></h3>
             <p>A Windows desktop app that applies two precise rule sets to every account's prep
               workbook and writes upload-ready pause files, without mutating the source it reads
               from.</p>
@@ -193,11 +198,13 @@
       </li>
 
       <li>
-        <a class="work-card" href="work/search-term-audit.html">
-          <img src="assets/img/search-term-audit-arch.svg" alt="Architecture diagram: bulk export files feed a central-directory zip read that decompresses only the sheets it needs, instead of scanning forward for each entry.">
-          <div class="work-card__body">
-            <p class="work-card__meta">Amazon Ads · Desktop App</p>
-            <h3 class="work-card__title">Finding where an advertiser bids against themselves — and fixing a zip reader that could hang forever doing it</h3>
+        <a class="case-row" href="work/search-term-audit.html">
+          <div class="case-row__media">
+            <img src="assets/img/search-term-audit-arch.svg" alt="Architecture diagram: bulk export files feed a central-directory zip read that decompresses only the sheets it needs, instead of scanning forward for each entry.">
+          </div>
+          <div class="case-row__body">
+            <p class="case-row__meta">Amazon Ads · Desktop App</p>
+            <h3 class="case-row__title"><span class="case-row__title-text">Finding where an advertiser bids against themselves — and fixing a zip reader that could hang forever doing it</span><svg class="case-row__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12L12 4M12 4H5M12 4V11"></path></svg></h3>
             <p>A desktop tool that detects Sponsored Products keyword cannibalisation, built
               around a hand-written zip reader that sidesteps a silent infinite-hang defect in
               standard xlsx readers.</p>
@@ -212,11 +219,13 @@
       </li>
 
       <li>
-        <a class="work-card" href="work/catalog-alerting.html">
-          <img src="assets/img/catalog-alerting-arch.svg" alt="Architecture diagram: a Cloud Scheduler cron trigger calls a Cloud Run endpoint, which compares today's BigQuery catalog snapshot against a rolling history table and feeds five isolated diff rules.">
-          <div class="work-card__body">
-            <p class="work-card__meta">Amazon Ads · Cloud Pipeline</p>
-            <h3 class="work-card__title">Catching catalog problems automatically instead of stumbling into them</h3>
+        <a class="case-row" href="work/catalog-alerting.html">
+          <div class="case-row__media">
+            <img src="assets/img/catalog-alerting-arch.svg" alt="Architecture diagram: a Cloud Scheduler cron trigger calls a Cloud Run endpoint, which compares today's BigQuery catalog snapshot against a rolling history table and feeds five isolated diff rules.">
+          </div>
+          <div class="case-row__body">
+            <p class="case-row__meta">Amazon Ads · Cloud Pipeline</p>
+            <h3 class="case-row__title"><span class="case-row__title-text">Catching catalog problems automatically instead of stumbling into them</span><svg class="case-row__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12L12 4M12 4H5M12 4V11"></path></svg></h3>
             <p>A scheduled Cloud Run and BigQuery service that diffs today's catalog state
               against a rolling history and emails a grouped digest of what actually changed —
               piloted on a single seller account.</p>
@@ -234,96 +243,99 @@
   </div>
 </section>
 
-<section class="section section--tint reveal" id="services">
+<section class="section section--tint reveal" id="capabilities">
   <div class="wrap">
     <h2 class="h2">Beyond the case studies above</h2>
-    <ul class="svc-grid">
-      <li class="svc">
-        <h3>Report &amp; pipeline automation</h3>
-        <p>Recurring spreadsheet and reporting work replaced with scheduled, tested pipelines
-          that run without someone remembering to click a button.</p>
-      </li>
-      <li class="svc">
-        <h3>Data warehousing</h3>
-        <p>BigQuery warehouses that give scattered source data a single, queryable home instead
-          of a folder of exports.</p>
-      </li>
-      <li class="svc">
-        <h3>Dashboards &amp; BI</h3>
-        <p>Looker Studio and spreadsheet-based dashboards built on top of a warehouse, not a
-          weekly copy-paste.</p>
-      </li>
-      <li class="svc">
-        <h3>Excel &amp; Google Sheets tooling</h3>
-        <p>VBA and Apps Script templates and reporting systems that turn a recurring manual
-          assembly job into a button — built on the same skillset behind the VBA and macro
-          engineering in the case studies above, applied to reporting and spreadsheet workflows
-          directly.</p>
-      </li>
-      <li class="svc">
-        <h3>Data cleanup &amp; reconciliation</h3>
-        <p>Messy, inconsistent, or duplicated source data reconciled into something a report or
-          pipeline can trust.</p>
-      </li>
-      <li class="svc">
-        <h3>Internal tools &amp; Amazon Ads tooling</h3>
-        <p>Purpose-built desktop apps and cloud services for workflows spreadsheets and
-          off-the-shelf software don't cover.</p>
-      </li>
-    </ul>
+    <div class="capabilities-grid">
+      <div>
+        <h3 class="capabilities-subhead">What I do</h3>
+        <ul class="svc-list">
+          <li class="svc">
+            <h3>Report &amp; pipeline automation</h3>
+            <p>Recurring spreadsheet and reporting work replaced with scheduled, tested pipelines
+              that run without someone remembering to click a button.</p>
+          </li>
+          <li class="svc">
+            <h3>Data warehousing</h3>
+            <p>BigQuery warehouses that give scattered source data a single, queryable home instead
+              of a folder of exports.</p>
+          </li>
+          <li class="svc">
+            <h3>Dashboards &amp; BI</h3>
+            <p>Looker Studio and spreadsheet-based dashboards built on top of a warehouse, not a
+              weekly copy-paste.</p>
+          </li>
+          <li class="svc">
+            <h3>Excel &amp; Google Sheets tooling</h3>
+            <p>VBA and Apps Script templates and reporting systems that turn a recurring manual
+              assembly job into a button — built on the same skillset behind the VBA and macro
+              engineering in the case studies above, applied to reporting and spreadsheet workflows
+              directly.</p>
+          </li>
+          <li class="svc">
+            <h3>Data cleanup &amp; reconciliation</h3>
+            <p>Messy, inconsistent, or duplicated source data reconciled into something a report or
+              pipeline can trust.</p>
+          </li>
+          <li class="svc">
+            <h3>Internal tools &amp; Amazon Ads tooling</h3>
+            <p>Purpose-built desktop apps and cloud services for workflows spreadsheets and
+              off-the-shelf software don't cover.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="capabilities-subhead">What I build with</h3>
+
+        <div class="stack-group">
+          <h3>Warehousing &amp; query</h3>
+          <ul class="tags">
+            <li class="tag">BigQuery</li>
+            <li class="tag">Microsoft SQL Server</li>
+            <li class="tag">SQL</li>
+            <li class="tag">Google Cloud</li>
+          </ul>
+        </div>
+
+        <div class="stack-group">
+          <h3>Automation</h3>
+          <ul class="tags">
+            <li class="tag">Claude / AI coding agents</li>
+            <li class="tag">Python</li>
+            <li class="tag">VBA</li>
+            <li class="tag">PowerShell</li>
+            <li class="tag">Task Scheduler</li>
+            <li class="tag">Cloud Run</li>
+            <li class="tag">Cloud Scheduler</li>
+          </ul>
+        </div>
+
+        <div class="stack-group">
+          <h3>Desktop apps</h3>
+          <ul class="tags">
+            <li class="tag">Electron</li>
+            <li class="tag">React</li>
+            <li class="tag">TypeScript</li>
+          </ul>
+        </div>
+
+        <div class="stack-group">
+          <h3>Reporting &amp; BI</h3>
+          <ul class="tags">
+            <li class="tag">Power BI</li>
+            <li class="tag">Looker Studio</li>
+            <li class="tag">MS Access</li>
+            <li class="tag">Excel</li>
+            <li class="tag">Google Sheets</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section reveal" id="stack">
-  <div class="wrap wrap--narrow">
-    <h2 class="h2">What I build with</h2>
-
-    <div class="stack-group">
-      <h3>Warehousing &amp; query</h3>
-      <ul class="tags">
-        <li class="tag">BigQuery</li>
-        <li class="tag">Microsoft SQL Server</li>
-        <li class="tag">SQL</li>
-        <li class="tag">Google Cloud</li>
-      </ul>
-    </div>
-
-    <div class="stack-group">
-      <h3>Automation</h3>
-      <ul class="tags">
-        <li class="tag">Claude / AI coding agents</li>
-        <li class="tag">Python</li>
-        <li class="tag">VBA</li>
-        <li class="tag">PowerShell</li>
-        <li class="tag">Task Scheduler</li>
-        <li class="tag">Cloud Run</li>
-        <li class="tag">Cloud Scheduler</li>
-      </ul>
-    </div>
-
-    <div class="stack-group">
-      <h3>Desktop apps</h3>
-      <ul class="tags">
-        <li class="tag">Electron</li>
-        <li class="tag">React</li>
-        <li class="tag">TypeScript</li>
-      </ul>
-    </div>
-
-    <div class="stack-group">
-      <h3>Reporting &amp; BI</h3>
-      <ul class="tags">
-        <li class="tag">Power BI</li>
-        <li class="tag">Looker Studio</li>
-        <li class="tag">MS Access</li>
-        <li class="tag">Excel</li>
-        <li class="tag">Google Sheets</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section--tint reveal" id="about">
+<section class="section reveal" id="contact">
   <div class="wrap wrap--narrow">
     <h2 class="h2">About</h2>
     <div class="about-grid">
@@ -339,18 +351,16 @@
         <p><a class="btn btn--ghost" href="assets/Borabo-CV.pdf">Download CV</a></p>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="section reveal" id="contact">
-  <div class="wrap wrap--narrow">
-    <h2 class="h2">Get in touch</h2>
-    <p class="lede">Open to automation, data systems, and AI-assisted tooling work —
-      spreadsheet-scale or systems-scale.</p>
-    <div class="btn-row">
-      <a class="btn btn--primary" href="mailto:Jaypeeborabo81@gmail.com">Email me</a>
-      <a class="btn btn--ghost" href="https://www.upwork.com/freelancers/~01d745440854205fed" rel="noopener">Upwork profile</a>
-      <a class="btn btn--ghost" href="https://www.onlinejobs.ph/jobseekers/info/1122576" rel="noopener">OnlineJobs.ph profile</a>
+    <div class="closing-contact">
+      <h2 class="h2">Get in touch</h2>
+      <p class="lede">Open to automation, data systems, and AI-assisted tooling work —
+        spreadsheet-scale or systems-scale.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="mailto:Jaypeeborabo81@gmail.com">Email me</a>
+        <a class="btn btn--ghost" href="https://www.upwork.com/freelancers/~01d745440854205fed" rel="noopener">Upwork profile</a>
+        <a class="btn btn--ghost" href="https://www.onlinejobs.ph/jobseekers/info/1122576" rel="noopener">OnlineJobs.ph profile</a>
+      </div>
     </div>
   </div>
 </section>
