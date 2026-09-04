@@ -57,86 +57,30 @@
   }
 
   /* ------------------------------------------------------------------
-     Hero Manual/Automated toggle — no-ops on pages without the markup
+     Hero transform diagram — chaotic input converging into clean output.
+     Reveals once per scroll-into-view, not a perpetual loop; no-ops on
+     pages without the markup.
      ------------------------------------------------------------------ */
-  var modeSwitch = document.querySelector(".mode-switch");
-  var heroPanel = document.querySelector(".hero-panel");
-  if (modeSwitch && heroPanel) {
-    var modeButtons = modeSwitch.querySelectorAll(".mode-switch__btn");
-    var timerEl = heroPanel.querySelector("[data-manual-timer]");
-    var timerHandle = null;
-
-    var stopTimer = function () {
-      if (timerHandle) { clearInterval(timerHandle); timerHandle = null; }
+  var transformDiagram = document.querySelector(".transform-diagram");
+  if (transformDiagram) {
+    var runDiagram = function () {
+      transformDiagram.classList.remove("run");
+      void transformDiagram.getBoundingClientRect();
+      transformDiagram.classList.add("run");
     };
-    var startTimer = function () {
-      if (!timerEl || reduceMotion) return;
-      var startedAt = Date.now();
-      stopTimer();
-      timerHandle = setInterval(function () {
-        var elapsed = Math.floor((Date.now() - startedAt) / 1000);
-        var mins = Math.floor(elapsed / 60);
-        var secs = (elapsed % 60).toString().padStart(2, "0");
-        timerEl.textContent = "Time spent here: " + mins + ":" + secs;
-      }, 1000);
-    };
-
-    /* Pulse travels once per switch to Automated, not on a perpetual loop —
-       retriggered by removing/re-adding the class so the CSS animation restarts. */
-    var pulseEl = heroPanel.querySelector(".auto-diagram__pulse");
-    var runPulse = function () {
-      if (!pulseEl || reduceMotion) return;
-      pulseEl.classList.remove("run");
-      void pulseEl.getBoundingClientRect();
-      pulseEl.classList.add("run");
-    };
-
-    var setMode = function (mode) {
-      modeSwitch.setAttribute("data-active", mode);
-      modeButtons.forEach(function (btn) {
-        var active = btn.getAttribute("data-mode") === mode;
-        btn.setAttribute("aria-pressed", active ? "true" : "false");
-      });
-      heroPanel.querySelectorAll(".hero-panel__view").forEach(function (view) {
-        var active = view.getAttribute("data-view") === mode;
-        view.classList.toggle("is-active", active);
-        view.setAttribute("aria-hidden", active ? "false" : "true");
-      });
-      if (mode === "manual") { startTimer(); } else { stopTimer(); runPulse(); }
-    };
-    modeButtons.forEach(function (btn) {
-      btn.addEventListener("click", function () { setMode(btn.getAttribute("data-mode")); });
-    });
-
-    if (modeSwitch.getAttribute("data-active") === "auto") runPulse();
-
-    /* Hero diagram — hover/focus explorable, same pattern as the flagship case study */
-    var autoDiagram = heroPanel.querySelector(".auto-diagram");
-    var autoReadout = heroPanel.querySelector("[data-auto-readout]");
-    if (autoDiagram && autoReadout) {
-      var defaultReadout = autoReadout.textContent;
-      var autoStages = autoDiagram.querySelectorAll("[data-stage]");
-      var autoCaptions = {
-        source: "Spreadsheets and exports land here — the same messy inputs shown in Manual mode.",
-        automation: "Rules and automated tests run against every input before anything moves on.",
-        export: "Output lands on schedule, with nobody clicking a button to send it."
-      };
-      autoStages.forEach(function (stage) {
-        var focus = function () {
-          autoDiagram.classList.add("has-focus");
-          autoStages.forEach(function (s) { s.classList.toggle("is-active", s === stage); });
-          autoReadout.textContent = autoCaptions[stage.getAttribute("data-stage")] || defaultReadout;
-        };
-        var clear = function () {
-          autoDiagram.classList.remove("has-focus");
-          autoStages.forEach(function (s) { s.classList.remove("is-active"); });
-          autoReadout.textContent = defaultReadout;
-        };
-        stage.addEventListener("mouseenter", focus);
-        stage.addEventListener("focus", focus);
-        stage.addEventListener("mouseleave", clear);
-        stage.addEventListener("blur", clear);
-      });
+    if (reduceMotion) {
+      /* CSS shows the settled end state unconditionally when reduced motion
+         is requested, so no class toggling — and no observer — is needed. */
+    } else if ("IntersectionObserver" in window) {
+      var diagramObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) runDiagram();
+          else transformDiagram.classList.remove("run");
+        });
+      }, { threshold: 0.4 });
+      diagramObserver.observe(transformDiagram);
+    } else {
+      transformDiagram.classList.add("run");
     }
   }
 

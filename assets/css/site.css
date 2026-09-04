@@ -94,7 +94,7 @@ body {
   transition: background-color .25s ease, color .25s ease;
 }
 
-.site-header, .site-footer, .hero-panel, .manual-cell,
+.site-header, .site-footer, .hero-panel,
 .tag, .svc, .section--tint, .figure img, .figure svg, .portrait {
   transition: background-color .25s ease, color .25s ease, border-color .25s ease;
 }
@@ -437,40 +437,6 @@ a:hover { color: var(--accent-ink); }
 
 .hero__demo { display: flex; flex-direction: column; gap: var(--sp-4); }
 
-.mode-switch {
-  position: relative;
-  display: inline-grid; grid-template-columns: 1fr 1fr;
-  align-self: flex-start;
-  border: 1px solid var(--ink);
-  border-radius: 999px;
-  overflow: hidden;
-}
-.mode-switch__thumb {
-  position: absolute; inset: 2px 50% 2px 2px;
-  background: var(--ink);
-  border-radius: 999px;
-  transition: transform .25s cubic-bezier(.65,0,.35,1);
-  z-index: 0;
-}
-.mode-switch[data-active="auto"] .mode-switch__thumb { transform: translateX(100%); }
-.mode-switch__btn {
-  position: relative; z-index: 1;
-  appearance: none; border: 0; background: transparent;
-  padding: var(--sp-2) var(--sp-4);
-  font: 600 var(--fs-xs)/1.4 var(--mono);
-  letter-spacing: 0.03em;
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition: color .2s ease;
-}
-.mode-switch__btn:hover { color: var(--ink); }
-.mode-switch__btn[aria-pressed="true"] { color: var(--paper); }
-.mode-switch__btn:active { transform: scale(.96); }
-
-@media (prefers-reduced-motion: reduce) {
-  .mode-switch__thumb { transition: none; }
-}
-
 .hero-panel {
   position: relative;
   border: 1px solid var(--line);
@@ -479,17 +445,7 @@ a:hover { color: var(--accent-ink); }
   min-height: 16rem;
   padding: var(--sp-6);
   box-shadow: inset 0 1px 0 var(--panel-highlight);
-}
-.hero-panel__view {
-  display: none;
-  flex-direction: column; gap: var(--sp-5);
-  height: 100%;
-}
-.hero-panel__view.is-active { display: flex; animation: panel-in .32s cubic-bezier(.16,1,.3,1); }
-
-@keyframes panel-in {
-  from { opacity: 0; transform: scale(.97); }
-  to   { opacity: 1; transform: scale(1); }
+  display: flex; flex-direction: column; gap: var(--sp-5);
 }
 
 .hero-panel__readout {
@@ -498,60 +454,77 @@ a:hover { color: var(--accent-ink); }
   color: var(--ink-faint);
 }
 
-/* Manual view: a small messy mock grid — synthetic placeholder content only */
-.manual-grid { display: flex; flex-direction: column; gap: var(--sp-2); }
-.manual-grid__row { display: flex; gap: var(--sp-2); }
-.manual-grid__row--skew { transform: rotate(-1deg) translateX(6px); }
-.manual-cell {
-  flex: 1; min-width: 0;
-  padding: var(--sp-2) var(--sp-3);
-  background: var(--paper);
-  border: 1px solid var(--line);
-  font: 500 var(--fs-xs)/1.4 var(--mono);
-  color: var(--ink-soft);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.manual-cell--warn {
-  border-color: var(--warn); color: var(--warn);
-  background: color-mix(in srgb, var(--warn) 10%, var(--paper));
-}
+/* ==========================================================================
+   Transform diagram — one continuous visual: scattered, error-prone input on
+   the left converges through a system stage and fans out as clean, uniform
+   output on the right. Reveals once per scroll-into-view (JS toggles .run),
+   not a perpetual loop.
+   ========================================================================== */
+.transform-diagram { width: 100%; height: auto; }
+.transform-diagram text { font: 500 10px/1 var(--mono); }
+.transform-diagram .stage-label { font: 600 11px/1 var(--sans); fill: var(--ink); }
+.transform-diagram .arrow-head { fill: var(--accent-ink); }
 
-/* Auto view: inline SVG pipeline diagram, same visual language as the case-study diagrams */
-.auto-diagram { width: 100%; height: auto; }
-.auto-diagram text { font: 500 10px/1 var(--mono); fill: var(--ink-soft); }
-.auto-diagram .stage-label { font: 600 11px/1 var(--sans); fill: var(--ink); }
-.auto-diagram rect { fill: var(--accent-bg); stroke: var(--accent); stroke-width: 1.5; transition: fill .15s ease, opacity .15s ease; }
-.auto-diagram line { stroke: var(--accent-ink); stroke-width: 1.5; }
-.auto-diagram .arrow-head { fill: var(--accent-ink); }
-.auto-diagram [data-stage] { cursor: pointer; }
-.auto-diagram.has-focus [data-stage] { opacity: .45; }
-.auto-diagram.has-focus [data-stage].is-active { opacity: 1; }
-.auto-diagram [data-stage].is-active rect { fill: var(--accent); }
-.auto-diagram [data-stage].is-active .stage-label { fill: var(--paper); }
-.auto-diagram [data-stage].is-active text:not(.stage-label) { fill: var(--accent-bg); }
-
-.auto-diagram__pulse {
-  fill: var(--signal);
-  offset-path: path("M15,70 L305,70");
-  offset-distance: 0%;
+.chaos-el {
+  transform-box: fill-box; transform-origin: center;
+  transform: rotate(var(--rot)) scale(.85);
   opacity: 0;
 }
-/* Fires once per switch to Automated (retriggered in JS), not a perpetual loop —
-   a single deliberate "run just completed" moment reads as a status ping, not a gif. */
-.auto-diagram__pulse.run {
-  animation: pulse-travel 1s cubic-bezier(.4,0,.2,1);
+.chaos-el rect { fill: var(--paper); stroke: var(--line); }
+.chaos-el text { fill: var(--ink-soft); }
+.chaos-el.warn rect { stroke: var(--warn); }
+.chaos-el.warn text { fill: var(--warn); }
+.transform-diagram.run .chaos-el {
+  animation: chaos-in .4s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: var(--d);
 }
-@keyframes pulse-travel {
-  0%   { offset-distance: 0%; opacity: 0; }
-  10%  { opacity: 1; }
-  85%  { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
+@keyframes chaos-in {
+  from { opacity: 0; transform: rotate(var(--rot)) scale(.7); }
+  to   { opacity: 1; transform: rotate(var(--rot)) scale(1); }
+}
+
+.flow-line { fill: none; stroke: var(--accent-ink); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
+.transform-diagram.run .flow-line {
+  animation: draw-in .35s ease forwards;
+  animation-delay: var(--d);
+}
+@keyframes draw-in {
+  from { opacity: 1; stroke-dashoffset: 1; }
+  to   { opacity: 1; stroke-dashoffset: 0; }
+}
+
+.system-box { transform-box: fill-box; transform-origin: center; transform: scale(.9); opacity: 0; }
+.system-box rect { fill: var(--accent-bg); stroke: var(--accent); stroke-width: 1.5; }
+.system-box text:not(.stage-label) { fill: var(--ink-soft); }
+.transform-diagram.run .system-box {
+  animation: system-in .4s cubic-bezier(.34,1.56,.64,1) both;
+  animation-delay: var(--d);
+}
+@keyframes system-in {
+  from { opacity: 0; transform: scale(.85); }
+  60%  { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.order-el { opacity: 0; transform: translateX(-8px); }
+.order-el rect { fill: var(--accent-bg); stroke: var(--accent); }
+.order-el text { fill: var(--accent-ink); }
+.order-el .check { fill: none; stroke: var(--accent-ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.transform-diagram.run .order-el {
+  animation: order-in .4s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: var(--d);
+}
+@keyframes order-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-panel__view.is-active { animation: none; }
-  .auto-diagram__pulse.run { animation: none; opacity: 0; }
-  .auto-diagram [data-stage] * { transition: none; }
+  .chaos-el, .flow-line, .system-box, .order-el { animation: none !important; opacity: 1; }
+  .chaos-el { transform: rotate(var(--rot)) scale(1); }
+  .flow-line { stroke-dashoffset: 0; }
+  .system-box { transform: scale(1); }
+  .order-el { transform: translateX(0); }
 }
 
 /* ==========================================================================
