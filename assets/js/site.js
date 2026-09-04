@@ -81,6 +81,16 @@
       }, 1000);
     };
 
+    /* Pulse travels once per switch to Automated, not on a perpetual loop —
+       retriggered by removing/re-adding the class so the CSS animation restarts. */
+    var pulseEl = heroPanel.querySelector(".auto-diagram__pulse");
+    var runPulse = function () {
+      if (!pulseEl || reduceMotion) return;
+      pulseEl.classList.remove("run");
+      void pulseEl.getBoundingClientRect();
+      pulseEl.classList.add("run");
+    };
+
     var setMode = function (mode) {
       modeSwitch.setAttribute("data-active", mode);
       modeButtons.forEach(function (btn) {
@@ -92,11 +102,13 @@
         view.classList.toggle("is-active", active);
         view.setAttribute("aria-hidden", active ? "false" : "true");
       });
-      if (mode === "manual") startTimer(); else stopTimer();
+      if (mode === "manual") { startTimer(); } else { stopTimer(); runPulse(); }
     };
     modeButtons.forEach(function (btn) {
       btn.addEventListener("click", function () { setMode(btn.getAttribute("data-mode")); });
     });
+
+    if (modeSwitch.getAttribute("data-active") === "auto") runPulse();
 
     /* Hero diagram — hover/focus explorable, same pattern as the flagship case study */
     var autoDiagram = heroPanel.querySelector(".auto-diagram");
